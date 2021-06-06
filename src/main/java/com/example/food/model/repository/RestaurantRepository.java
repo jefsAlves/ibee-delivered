@@ -15,4 +15,6 @@ public interface RestaurantRepository extends JpaRepository<Restaurant, Long> {
 
 	@Query("FROM Restaurant r left join fetch r.kitchen ")
 	List<Restaurant> findAll();
+
+	Restaurant findByName(String name);
 }

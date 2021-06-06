@@ -66,13 +66,10 @@ public class Restaurant {
 
 	@JsonIgnore
 	@ManyToMany
-	@JoinTable(
-	name = "tb_restaurant_payment", 
-	joinColumns = @JoinColumn(name = "restaurant_id"), 
-	inverseJoinColumns = @JoinColumn(name = "payment_id"))
+	@JoinTable(name = "tb_restaurant_payment", joinColumns = @JoinColumn(name = "restaurant_id"), inverseJoinColumns = @JoinColumn(name = "payment_id"))
 	private Set<Payments> payments;
 
-	@JsonIgnore 
+	@JsonIgnore
 	@OneToMany(mappedBy = "restaurant")
 	private List<Products> products;
 

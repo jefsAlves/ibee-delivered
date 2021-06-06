@@ -9,6 +9,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -26,6 +28,7 @@ public class City {
 	@Column(name = "name", nullable = false)
 	private String name;
 
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "state_id", nullable = false)
 	private State state;

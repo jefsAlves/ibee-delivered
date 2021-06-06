@@ -7,13 +7,16 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.example.food.model.entities.Restaurant;
-import com.example.food.model.exceptions.BusinessException;
+import com.example.food.model.exceptions.IdNotFoudException;
+import com.example.food.model.exceptions.RestaurantException;
 import com.example.food.model.repository.RestaurantRepository;
 import com.example.food.model.services.RestaurantService;
 import com.example.food.model.util.MessageUtil;
+import com.example.food.model.util.ValidationRestaurant;
 
 @Service
 public class RestaurantServiceImpl implements RestaurantService {
@@ -21,17 +24,20 @@ public class RestaurantServiceImpl implements RestaurantService {
 	@Autowired
 	private RestaurantRepository restaurantRepository;
 
+	@Autowired
+	private ValidationRestaurant validationRestaurant;
+
 	@Override
 	public Restaurant searchRestaurant(Long id) {
 		Optional<Restaurant> findId = restaurantRepository.findById(id);
-		return findId.orElseThrow(() -> new BusinessException(MessageUtil.ID_NOT_FOUND));
+		return findId.orElseThrow(() -> new IdNotFoudException(MessageUtil.ID_NOT_FOUND));
 	}
 
 	@Override
 	public Restaurant searchRestaurantByName(String name) {
 		Restaurant restaurantName = restaurantRepository.searchNameRestaurant(name);
 		if (restaurantName == null) {
-			throw new BusinessException(MessageUtil.RESTAURANT_NOT_EXIST);
+			throw new RestaurantException(MessageUtil.RESTAURANT_NOT_EXIST);
 		}
 		return restaurantName;
 	}
@@ -45,28 +51,27 @@ public class RestaurantServiceImpl implements RestaurantService {
 	@Transactional
 	@Override
 	public Restaurant createRestaurant(Restaurant restaurant) {
+		validationRestaurant.verifyRestaurantExist(restaurant.getName());
 		return restaurantRepository.save(restaurant);
 	}
 
 	@Transactional
 	@Override
 	public Restaurant updateRestaurant(Long id, Restaurant restaurant) {
-		return validAlreadyRestaurantExist(id, restaurant);
-	}
-
-	private Restaurant validAlreadyRestaurantExist(Long id, Restaurant restaurant) {
-		Optional<Restaurant> restaurantBase = restaurantRepository.findById(id);
-		if (restaurantBase.isPresent()) {
-			BeanUtils.copyProperties(restaurant, restaurantBase.get(), "id");
-			return restaurantRepository.save(restaurantBase.get());
-		}
-		throw new BusinessException(MessageUtil.ID_NOT_FOUND);
+		Restaurant restaurantValid = validationRestaurant.verifyRestaurantExist(id);
+		BeanUtils.copyProperties(restaurant, restaurantValid, "id", "createDate", "updateDate", "address", "payments", "products");
+		return restaurantRepository.save(restaurantValid);
 	}
 
 	@Transactional
 	@Override
 	public void deleteRestaurant(Long restaurantId) {
-		restaurantRepository.deleteById(restaurantId);
+		try {
+			restaurantRepository.deleteById(restaurantId);
+		}
+		catch (EmptyResultDataAccessException e) {
+			throw new IdNotFoudException(MessageUtil.ID_NOT_FOUND);
+		}
 	}
 
 }
