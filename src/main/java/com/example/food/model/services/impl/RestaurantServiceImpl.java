@@ -59,7 +59,8 @@ public class RestaurantServiceImpl implements RestaurantService {
 	@Override
 	public Restaurant updateRestaurant(Long id, Restaurant restaurant) {
 		Restaurant restaurantValid = validationRestaurant.verifyRestaurantExist(id);
-		BeanUtils.copyProperties(restaurant, restaurantValid, "id", "createDate", "updateDate", "address", "payments", "products");
+		BeanUtils.copyProperties(restaurant, restaurantValid, "id", "createDate", "updateDate", "address", "payments",
+				"products");
 		return restaurantRepository.save(restaurantValid);
 	}
 

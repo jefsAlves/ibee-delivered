@@ -18,11 +18,19 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.Valid;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.groups.ConvertGroup;
+import javax.validation.groups.Default;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.example.food.model.controller.groups.GroupRestaurant.KitchenId;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -38,9 +46,11 @@ public class Restaurant {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	@NotBlank
 	@Column(name = "name", nullable = false)
 	private String name;
 
+	@DecimalMin("1")
 	@Column(name = "freigth_rate", nullable = false)
 	private BigDecimal freigthRate;
 
@@ -54,7 +64,11 @@ public class Restaurant {
 	@Column(nullable = false, columnDefinition = "datetime")
 	private LocalDateTime updateDate;
 
-	@JsonIgnore
+	@JsonIgnoreProperties(value = "name", allowGetters = true)
+	@Valid
+	@ConvertGroup(from = Default.class, to = KitchenId.class)
+	@NotNull
+//	@JsonIgnore
 //	@JsonIgnoreProperties("hibernateLazyInitializer")
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "kitchen_id")

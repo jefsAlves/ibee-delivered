@@ -2,6 +2,8 @@ package com.example.food.model.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -41,7 +43,7 @@ public class RestaurantController {
 	}
 
 	@PostMapping
-	public ResponseEntity<Restaurant> createRestaurant(@RequestBody Restaurant restaurant) {
+	public ResponseEntity<Restaurant> createRestaurant(@RequestBody @Valid Restaurant restaurant) {
 		return new ResponseEntity<Restaurant>(restarauntService.createRestaurant(restaurant), HttpStatus.CREATED);
 	}
 

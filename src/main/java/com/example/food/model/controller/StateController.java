@@ -2,6 +2,8 @@ package com.example.food.model.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,12 +37,12 @@ public class StateController {
 	}
 
 	@PostMapping
-	public ResponseEntity<State> createState(@RequestBody State state) {
+	public ResponseEntity<State> createState(@RequestBody @Valid State state) {
 		return new ResponseEntity<>(stateService.createState(state), HttpStatus.CREATED);
 	}
 
 	@PutMapping(value = "/{stateId}")
-	public ResponseEntity<State> updateState(@PathVariable Long stateId, @RequestBody State state) {
+	public ResponseEntity<State> updateState(@PathVariable Long stateId, @Valid @RequestBody State state) {
 		return new ResponseEntity<>(stateService.updateState(stateId, state), HttpStatus.OK);
 	}
 

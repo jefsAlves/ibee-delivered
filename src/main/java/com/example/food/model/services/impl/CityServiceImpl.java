@@ -66,7 +66,7 @@ public class CityServiceImpl implements CityService {
 	@Override
 	public void deleteCity(Long id) {
 		try {
-			cityRepository.findById(id);
+			cityRepository.deleteById(id);
 		} 
 		catch (EmptyResultDataAccessException e) {
 			throw new IdNotFoudException(MessageUtil.ID_NOT_FOUND);

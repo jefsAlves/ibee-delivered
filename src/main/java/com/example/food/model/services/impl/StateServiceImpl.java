@@ -56,7 +56,7 @@ public class StateServiceImpl implements StateService {
 	@Override
 	public void deleteState(Long id) {
 		try {
-			stateRepository.findById(id);
+			stateRepository.deleteById(id);
 		} 
 		catch (EmptyResultDataAccessException e) {
 			throw new IdNotFoudException(MessageUtil.ID_NOT_FOUND);

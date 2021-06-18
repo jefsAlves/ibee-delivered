@@ -7,7 +7,7 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.example.food.model.entities.Kitchen;
@@ -58,7 +58,7 @@ public class KitchenServiceImpl implements KitchenService {
 		try {
 			kitchenRepository.deleteById(id);
 		}
-		catch (EmptyResultDataAccessException e) {
+		catch (DataIntegrityViolationException  e) {
 			throw new IdNotFoudException(MessageUtil.ID_NOT_FOUND);
 		}
 	}

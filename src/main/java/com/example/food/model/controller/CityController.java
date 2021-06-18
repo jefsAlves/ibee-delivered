@@ -2,9 +2,12 @@ package com.example.food.model.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -40,12 +43,19 @@ public class CityController {
 	}
 
 	@PostMapping
-	public ResponseEntity<City> createCity(@RequestBody City city) {
+	public ResponseEntity<City> createCity(@RequestBody @Valid City city) {
 		return new ResponseEntity<>(cityService.createCity(city), HttpStatus.CREATED);
 	}
 
 	@PutMapping(value = "/{cityId}")
-	public ResponseEntity<City> updateCity(@PathVariable Long cityId, @RequestBody City city) {
+	public ResponseEntity<City> updateCity(@PathVariable @Valid Long cityId, @RequestBody City city) {
 		return new ResponseEntity<>(cityService.updateCity(cityId, city), HttpStatus.OK);
 	}
+
+	@DeleteMapping(value = "/{cityId}")
+	public ResponseEntity<City> deleteCity(@PathVariable Long cityId) {
+		cityService.deleteCity(cityId);
+		return ResponseEntity.noContent().build();
+	}
+
 }

@@ -8,8 +8,12 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+import javax.validation.groups.ConvertGroup;
+import javax.validation.groups.Default;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.example.food.model.controller.groups.StateGroups.StateId;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -25,10 +29,14 @@ public class City {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	@NotBlank
 	@Column(name = "name", nullable = false)
 	private String name;
 
-	@JsonIgnore
+	@Valid
+	@ConvertGroup(from = Default.class, to = StateId.class)
+//	@NotNull
+//	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "state_id", nullable = false)
 	private State state;
