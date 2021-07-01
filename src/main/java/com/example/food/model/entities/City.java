@@ -35,7 +35,7 @@ public class City {
 
 	@Valid
 	@ConvertGroup(from = Default.class, to = StateId.class)
-//	@NotNull
+//	@NotNullFS
 //	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "state_id", nullable = false)

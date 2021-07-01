@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.example.food.model.entities.City;
-import com.example.food.model.exceptions.BusinessException;
 import com.example.food.model.exceptions.CityException;
 import com.example.food.model.repository.CityRepository;
 

@@ -2,19 +2,19 @@ package com.example.food.model.services;
 
 import java.util.List;
 
-import com.example.food.model.entities.City;
+import com.example.food.model.dto.CityDTO;
 
 public interface CityService {
 
-	City searchCity(Long id);
+	CityDTO searchCity(Long id);
 
-	City searchCity(String name);
+	CityDTO searchCity(String name);
 
-	List<City> listsCity();
+	List<CityDTO> listsCity();
 
-	City createCity(City city);
+	CityDTO createCity(CityDTO city);
 
-	City updateCity(Long id, City city);
+	CityDTO updateCity(Long id, CityDTO city);
 
 	void deleteCity(Long id);
 

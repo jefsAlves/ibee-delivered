@@ -5,14 +5,14 @@ import java.util.Optional;
 
 import javax.transaction.Transactional;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
+import com.example.food.model.dto.CityDTO;
 import com.example.food.model.entities.City;
-import com.example.food.model.exceptions.BusinessException;
 import com.example.food.model.exceptions.IdNotFoudException;
+import com.example.food.model.mapper.CityMapper;
 import com.example.food.model.repository.CityRepository;
 import com.example.food.model.services.CityService;
 import com.example.food.model.util.MessageUtil;
@@ -27,39 +27,45 @@ public class CityServiceImpl implements CityService {
 	@Autowired
 	private ValidationCity validationCity;
 
+	@Autowired
+	private CityMapper mapper;
+
 	@Override
-	public City searchCity(Long id) {
+	public CityDTO searchCity(Long id) {
 		Optional<City> city = cityRepository.findById(id);
-		return city.orElseThrow(() -> new IdNotFoudException(MessageUtil.ID_NOT_FOUND));
+		city.orElseThrow(() -> new IdNotFoudException(MessageUtil.ID_NOT_FOUND));
+		return mapper.toDTO(city);
 	}
 
 	@Override
-	public City searchCity(String name) {
+	public CityDTO searchCity(String name) {
 		City nameBase = cityRepository.searchName(name);
-		if (nameBase == null) {
-			throw new BusinessException(MessageUtil.CITY_NOT_EXIST);
-		}
-		return nameBase;
+		validationCity.verifyCityExist(name);
+		return mapper.toDTO(nameBase);
 	}
 
 	@Override
-	public List<City> listsCity() {
-		return cityRepository.findAll();
+	public List<CityDTO> listsCity() {
+		var city = cityRepository.findAll();
+		return mapper.toDTOList(city);
 	}
 
 	@Transactional
 	@Override
-	public City createCity(City city) {
+	public CityDTO createCity(CityDTO cityDTO) {
+		var city = mapper.toEntity(cityDTO);
 		validationCity.verifyCityExist(city.getName());
-		return cityRepository.save(city);
+		city = cityRepository.save(city);
+		return mapper.toDTO(city);
 	}
 
 	@Transactional
 	@Override
-	public City updateCity(Long id, City city) {
+	public CityDTO updateCity(Long id, CityDTO cityDTO) {
 		City cityValid = validationCity.verifyCityExist(id);
-		BeanUtils.copyProperties(city, cityValid, "id", "state");
-		return cityRepository.save(cityValid);
+		mapper.copyProperties(cityDTO, cityValid);
+		cityValid = cityRepository.save(cityValid);
+		return mapper.toDTO(cityValid);
 	}
 
 	@Transactional
@@ -67,8 +73,7 @@ public class CityServiceImpl implements CityService {
 	public void deleteCity(Long id) {
 		try {
 			cityRepository.deleteById(id);
-		} 
-		catch (EmptyResultDataAccessException e) {
+		} catch (EmptyResultDataAccessException e) {
 			throw new IdNotFoudException(MessageUtil.ID_NOT_FOUND);
 		}
 	}

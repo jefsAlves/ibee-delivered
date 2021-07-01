@@ -2,17 +2,17 @@ package com.example.food.model.services;
 
 import java.util.List;
 
-import com.example.food.model.entities.Kitchen;
+import com.example.food.model.dto.KitchenDTO;
 
 public interface KitchenService {
 
-	Kitchen searchKitchen(Long id);
+	KitchenDTO searchKitchen(Long id);
 
-	List<Kitchen> listKitchens(Kitchen kitchen);
+	List<KitchenDTO> listKitchens(KitchenDTO kitchen);
 
-	Kitchen createKitchen(Kitchen kitchen);
+	KitchenDTO createKitchen(KitchenDTO kitchen);
 
-	Kitchen updateKitchen(Long id, Kitchen kitchen);
+	KitchenDTO updateKitchen(Long id, KitchenDTO kitchen);
 
 	void deleteKitchen(Long id);
 

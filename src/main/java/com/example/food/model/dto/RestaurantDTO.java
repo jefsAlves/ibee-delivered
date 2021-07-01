@@ -5,14 +5,17 @@ import java.math.BigDecimal;
 import com.example.food.model.entities.Kitchen;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@AllArgsConstructor
+@Getter
+@Setter
 public class RestaurantDTO {
 
-	@EqualsAndHashCode.Include
+	private Long id;
+
 	@JsonProperty(value = "name")
 	private String name;
 

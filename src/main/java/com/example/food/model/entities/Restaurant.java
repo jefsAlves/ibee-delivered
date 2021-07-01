@@ -8,7 +8,6 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -21,16 +20,11 @@ import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.groups.ConvertGroup;
-import javax.validation.groups.Default;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import com.example.food.model.controller.groups.GroupRestaurant.KitchenId;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -64,13 +58,13 @@ public class Restaurant {
 	@Column(nullable = false, columnDefinition = "datetime")
 	private LocalDateTime updateDate;
 
-	@JsonIgnoreProperties(value = "name", allowGetters = true)
+//	@JsonIgnoreProperties(value = "name", allowGetters = true)
 	@Valid
-	@ConvertGroup(from = Default.class, to = KitchenId.class)
-	@NotNull
+//	@ConvertGroup(from = Default.class, to = KitchenId.class)
+//	@NotNull
 //	@JsonIgnore
 //	@JsonIgnoreProperties("hibernateLazyInitializer")
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "kitchen_id")
 	private Kitchen kitchen;
 

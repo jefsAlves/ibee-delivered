@@ -1,0 +1,37 @@
+spring:
+  datasource:
+    hikari:
+      idle-timeout: 10000
+      maximum-pool-size: 30
+      minimum-idle: 20
+    password: admin
+    url: jdbc:mysql://localhost/algafood?createDatabaseIfNotExist=true&serverTimezone=UTC
+    username: root
+  flyway:
+    locations: classpath:db/migration,classpath:db/testData
+  jackson:
+    deserialization:
+      fail-on-ignored-properties: true
+      fail-on-unknown-properties: true
+  jpa:
+    show-sql: true
+  mvc:
+    throw-exception-if-no-handler-found: true
+  web:
+    resources:
+      add-mappings: false
+  kafka:
+    producer:
+      bootstrap-servers: localhost:9092,localhost:9094
+      group-id: 1
+  cloud:
+    stream:
+      kafka:
+        binder: 
+          brokers: localhost:9092,localhost:9094 
+      bindings:
+        topic:
+          destination: teste
+ 
+      
+      

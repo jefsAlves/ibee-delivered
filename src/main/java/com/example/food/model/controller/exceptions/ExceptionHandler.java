@@ -35,9 +35,9 @@ import com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException;
 
 @ControllerAdvice
 public class ExceptionHandler extends ResponseEntityExceptionHandler {
-	
+
 	@Autowired
-	private MessageSource messageSource; 
+	private MessageSource messageSource;
 
 	@org.springframework.web.bind.annotation.ExceptionHandler(IdNotFoudException.class)
 	public ResponseEntity<?> idNotFoundException(IdNotFoudException e, WebRequest request) {
@@ -79,42 +79,39 @@ public class ExceptionHandler extends ResponseEntityExceptionHandler {
 	public ResponseEntity<?> stateException(StateException e, WebRequest request) {
 		HttpStatus statusCode = HttpStatus.BAD_REQUEST;
 		ErrorType problem = ErrorType.STATE_ALREADY_EXIST;
-		String detail = e.getMessage();  
+		String detail = e.getMessage();
 		ResponseBody body = createBuilderResponseBody(statusCode, problem, detail).build();
 		return handleExceptionInternal(e, body, new HttpHeaders(), statusCode, request);
 	}
-	
-	public ResponseEntity<Object> unexpectedError(Exception ex, HttpStatus status, HttpHeaders headers, WebRequest request) {
+
+	public ResponseEntity<Object> unexpectedError(Exception ex, HttpStatus status, HttpHeaders headers,
+			WebRequest request) {
 		ErrorType error = ErrorType.UNEXPECTED_ERROR;
 		String detail = "An unexpected error occurred, if the error persists, contact your system administrator";
 		ResponseBody body = createBuilderResponseBody(status, error, detail).build();
 		return handleExceptionInternal(ex, body, headers, status, request);
 	}
-	
-	@Override
-	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
-		BindingResult bindingResult = ex.getBindingResult();
-		
-		List<ResponseBodyFields> responseBody = bindingResult.getFieldErrors()
-				.stream()
-					.map(fields -> {
-						String message = messageSource.getMessage(fields, LocaleContextHolder.getLocale());
 
-						return ResponseBodyFields.builder()
-								.name(fields.getField())
-								.userMessage(message)
-								.build();
-					})
-					.collect(Collectors.toList());
-		
+	@Override
+	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
+			HttpHeaders headers, HttpStatus status, WebRequest request) {
+		BindingResult bindingResult = ex.getBindingResult();
+
+		List<ResponseBodyFields> responseBody = bindingResult.getFieldErrors().stream().map(fields -> {
+			String message = messageSource.getMessage(fields, LocaleContextHolder.getLocale());
+
+			return ResponseBodyFields.builder().name(fields.getField()).userMessage(message).build();
+		}).collect(Collectors.toList());
+
 		ErrorType error = ErrorType.INVALID_BODY;
 		String detail = "Invalid body, please check the payload and enter the correct field values!";
 		ResponseBody body = createBuilderResponseBody(status, error, detail).responseBodyFields(responseBody).build();
 		return handleExceptionInternal(ex, body, headers, status, request);
 	}
-	
+
 	@Override
-	protected ResponseEntity<Object> handleNoHandlerFoundException(NoHandlerFoundException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
+	protected ResponseEntity<Object> handleNoHandlerFoundException(NoHandlerFoundException ex, HttpHeaders headers,
+			HttpStatus status, WebRequest request) {
 		ErrorType error = ErrorType.INVALID_RESOURCE;
 		String detail = String.format("The resource %s", ex.getRequestURL());
 		ResponseBody body = createBuilderResponseBody(status, error, detail).build();
@@ -122,7 +119,8 @@ public class ExceptionHandler extends ResponseEntityExceptionHandler {
 	}
 
 	@Override
-	protected ResponseEntity<Object> handleTypeMismatch(TypeMismatchException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
+	protected ResponseEntity<Object> handleTypeMismatch(TypeMismatchException ex, HttpHeaders headers,
+			HttpStatus status, WebRequest request) {
 		if (ex instanceof MethodArgumentTypeMismatchException) {
 			return handleMethodArgumentTypeMismatch((MethodArgumentTypeMismatchException) ex, status, headers, request);
 		}
@@ -131,7 +129,8 @@ public class ExceptionHandler extends ResponseEntityExceptionHandler {
 	}
 
 	@Override
-	protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
+	protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex,
+			HttpHeaders headers, HttpStatus status, WebRequest request) {
 		Throwable rootCause = ExceptionUtils.getRootCause(ex);
 
 		if (rootCause instanceof InvalidFormatException) {
@@ -146,13 +145,14 @@ public class ExceptionHandler extends ResponseEntityExceptionHandler {
 			return handleIgnoredProperty((IgnoredPropertyException) rootCause, status, headers, request);
 		}
 
-		ErrorType problem = ErrorType.INVALID_BODY; 	
+		ErrorType problem = ErrorType.INVALID_BODY;
 		String detail = "Invalid body!";
 		ResponseBody body = createBuilderResponseBody(status, problem, detail).build();
 		return handleExceptionInternal(ex, body, new HttpHeaders(), status, request);
 	}
 
-	private ResponseEntity<Object> handleInvalidFormart(InvalidFormatException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
+	private ResponseEntity<Object> handleInvalidFormart(InvalidFormatException ex, HttpHeaders headers,
+			HttpStatus status, WebRequest request) {
 		String path = concatProperties(ex.getPath());
 		ErrorType problem = ErrorType.INVALID_BODY;
 		String detail = String.format("Invalid value for the propertie %s", path);
@@ -161,7 +161,8 @@ public class ExceptionHandler extends ResponseEntityExceptionHandler {
 		return handleExceptionInternal(ex, body, headers, status, request);
 	}
 
-	private ResponseEntity<Object> handleUnrecognizedProperty(UnrecognizedPropertyException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
+	private ResponseEntity<Object> handleUnrecognizedProperty(UnrecognizedPropertyException ex, HttpHeaders headers,
+			HttpStatus status, WebRequest request) {
 		String path = concatProperties(ex.getPath());
 		ErrorType problem = ErrorType.INVALID_BODY;
 		String detail = String.format("The propertie %s not exist", path);
@@ -169,7 +170,8 @@ public class ExceptionHandler extends ResponseEntityExceptionHandler {
 		return handleExceptionInternal(ex, body, headers, status, request);
 	}
 
-	private ResponseEntity<Object> handleIgnoredProperty(IgnoredPropertyException ex, HttpStatus status, HttpHeaders headers, WebRequest request) {
+	private ResponseEntity<Object> handleIgnoredProperty(IgnoredPropertyException ex, HttpStatus status,
+			HttpHeaders headers, WebRequest request) {
 		String path = concatProperties(ex.getPath());
 		ErrorType problem = ErrorType.INVALID_BODY;
 		String detail = String.format("The propertie %s is not mapped", path);
@@ -177,7 +179,8 @@ public class ExceptionHandler extends ResponseEntityExceptionHandler {
 		return handleExceptionInternal(ex, body, headers, status, request);
 	}
 
-	private ResponseEntity<Object> handleMethodArgumentTypeMismatch(MethodArgumentTypeMismatchException ex, HttpStatus status, HttpHeaders headers, WebRequest request) {
+	private ResponseEntity<Object> handleMethodArgumentTypeMismatch(MethodArgumentTypeMismatchException ex,
+			HttpStatus status, HttpHeaders headers, WebRequest request) {
 		ErrorType problem = ErrorType.INVALID_PARAM;
 		String detail = String.format("Invalid param '%s'", ex.getValue());
 		ResponseBody body = createBuilderResponseBody(status, problem, detail).build();
@@ -188,17 +191,15 @@ public class ExceptionHandler extends ResponseEntityExceptionHandler {
 		return reference.stream().map(e -> e.getFieldName()).collect(Collectors.joining("."));
 	}
 
-	private ResponseBody.ResponseBodyBuilder createBuilderResponseBody(HttpStatus statusCode, ErrorType problemType, String detail) {
-		return ResponseBody.builder()
-		.status(statusCode.value())
-		.type(problemType.getUri())
-		.title(problemType.getTitle())
-		.detail(detail)
-		.timestamp(LocalDateTime.now());
+	private ResponseBody.ResponseBodyBuilder createBuilderResponseBody(HttpStatus statusCode, ErrorType problemType,
+			String detail) {
+		return ResponseBody.builder().status(statusCode.value()).type(problemType.getUri())
+				.title(problemType.getTitle()).detail(detail).timestamp(LocalDateTime.now());
 	}
 
 	@Override
-	protected ResponseEntity<Object> handleExceptionInternal(Exception ex, Object body, HttpHeaders headers,	HttpStatus status, WebRequest request) {
+	protected ResponseEntity<Object> handleExceptionInternal(Exception ex, Object body, HttpHeaders headers,
+			HttpStatus status, WebRequest request) {
 		return super.handleExceptionInternal(ex, body, headers, status, request);
 	}
 

@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.food.model.entities.Kitchen;
+import com.example.food.model.dto.KitchenDTO;
 import com.example.food.model.services.KitchenService;
 
 @RestController
@@ -27,27 +27,27 @@ public class KitchenController {
 	private KitchenService kitchenService;
 
 	@GetMapping(value = "/{kitchenId}")
-	public ResponseEntity<Kitchen> searchKitchen(@PathVariable Long kitchenId) {
+	public ResponseEntity<KitchenDTO> searchKitchen(@PathVariable Long kitchenId) {
 		return new ResponseEntity<>(kitchenService.searchKitchen(kitchenId), HttpStatus.OK);
 	}
 
 	@GetMapping
-	public ResponseEntity<List<Kitchen>> listKitchen(Kitchen kitchen) {
-		return new ResponseEntity<>(kitchenService.listKitchens(kitchen), HttpStatus.OK);
+	public ResponseEntity<List<KitchenDTO>> listKitchen(KitchenDTO kitchenDTO) {
+		return new ResponseEntity<>(kitchenService.listKitchens(kitchenDTO), HttpStatus.OK);
 	}
 
 	@PostMapping
-	public ResponseEntity<Kitchen> createKitchen(@RequestBody @Valid Kitchen kitchen) {
-		return new ResponseEntity<>(kitchenService.createKitchen(kitchen), HttpStatus.CREATED);
+	public ResponseEntity<KitchenDTO> createKitchen(@RequestBody @Valid KitchenDTO kitchenDTO) {
+		return new ResponseEntity<>(kitchenService.createKitchen(kitchenDTO), HttpStatus.CREATED);
 	}
 
 	@PutMapping(value = "/{kitchenId}")
-	public ResponseEntity<Kitchen> updateKitchen(@PathVariable Long kitchenId, @RequestBody Kitchen kitchen) {
-		return new ResponseEntity<>(kitchenService.updateKitchen(kitchenId, kitchen), HttpStatus.OK);
+	public ResponseEntity<KitchenDTO> updateKitchen(@PathVariable Long kitchenId, @RequestBody KitchenDTO kitchenDTO) {
+		return new ResponseEntity<>(kitchenService.updateKitchen(kitchenId, kitchenDTO), HttpStatus.OK);
 	}
 
 	@DeleteMapping(value = "/{kitchenId}")
-	public ResponseEntity<Kitchen> deleteKitchen(@PathVariable Long kitchenId) {
+	public ResponseEntity<KitchenDTO> deleteKitchen(@PathVariable Long kitchenId) {
 		kitchenService.deleteKitchen(kitchenId);
 		return ResponseEntity.noContent().build();
 	}

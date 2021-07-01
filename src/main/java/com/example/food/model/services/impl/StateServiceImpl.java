@@ -2,16 +2,19 @@ package com.example.food.model.services.impl;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.ExecutionException;
 
 import javax.transaction.Transactional;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
+import com.example.food.config.integration.StateIntegration;
+import com.example.food.model.dto.StateDTO;
 import com.example.food.model.entities.State;
 import com.example.food.model.exceptions.IdNotFoudException;
+import com.example.food.model.mapper.StateMapper;
 import com.example.food.model.repository.StateRepository;
 import com.example.food.model.services.StateService;
 import com.example.food.model.util.MessageUtil;
@@ -26,30 +29,42 @@ public class StateServiceImpl implements StateService {
 	@Autowired
 	private ValidationState validationState;
 
+	@Autowired
+	private StateMapper mapper;
+
+	@Autowired
+	private StateIntegration stateIntegration;
+
 	@Override
-	public State searchState(Long id) {
+	public StateDTO searchState(Long id) {
 		Optional<State> state = stateRepository.findById(id);
-		return state.orElseThrow(() -> new IdNotFoudException(MessageUtil.ID_NOT_FOUND));
+		state.orElseThrow(() -> new IdNotFoudException(MessageUtil.ID_NOT_FOUND));
+		return mapper.toDTO(state);
 	}
 
 	@Override
-	public List<State> listStates(State state) {
-		return stateRepository.findAll();
+	public List<StateDTO> listStates() {
+		var state = stateRepository.findAll();
+		return mapper.toDTOList(state);
 	}
 
 	@Transactional
 	@Override
-	public State createState(State state) {
+	public StateDTO createState(StateDTO stateDTO) throws InterruptedException, ExecutionException {
+		stateIntegration.sendMessage(stateDTO);
+		var state = mapper.toEntity(stateDTO);
 		validationState.verifyStateExist(state.getName());
-		return stateRepository.save(state);
+		stateRepository.save(state);
+		return mapper.toDTO(state);
 	}
 
 	@Transactional
 	@Override
-	public State updateState(Long id, State state) {
-		State stateValid = validationState.verifyStateExist(id);
-		BeanUtils.copyProperties(state, stateValid, "id");
-		return stateRepository.save(stateValid);
+	public StateDTO updateState(Long id, StateDTO stateDTO) {
+		var stateBase = validationState.verifyStateExist(id);
+		mapper.copyProperties(stateDTO, stateBase);
+		stateRepository.save(stateBase);
+		return mapper.toDTO(stateBase);
 	}
 
 	@Transactional
@@ -57,8 +72,7 @@ public class StateServiceImpl implements StateService {
 	public void deleteState(Long id) {
 		try {
 			stateRepository.deleteById(id);
-		} 
-		catch (EmptyResultDataAccessException e) {
+		} catch (EmptyResultDataAccessException e) {
 			throw new IdNotFoudException(MessageUtil.ID_NOT_FOUND);
 		}
 	}

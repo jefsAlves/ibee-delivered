@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.food.model.dto.CityDTO;
 import com.example.food.model.entities.City;
 import com.example.food.model.services.CityService;
 
@@ -28,32 +29,32 @@ public class CityController {
 	private CityService cityService;
 
 	@GetMapping(value = "/{cityId}")
-	public ResponseEntity<City> searchCity(@PathVariable Long cityId) {
+	public ResponseEntity<CityDTO> searchCity(@PathVariable Long cityId) {
 		return new ResponseEntity<>(cityService.searchCity(cityId), HttpStatus.OK);
 	}
 
 	@GetMapping(value = "/search")
-	public ResponseEntity<City> searchCity(@RequestParam(value = "findByName") String name) {
+	public ResponseEntity<CityDTO> searchCity(@RequestParam(value = "findByName") String name) {
 		return new ResponseEntity<>(cityService.searchCity(name), HttpStatus.OK);
 	}
 
 	@GetMapping
-	public ResponseEntity<List<City>> listsCity(City city) {
+	public ResponseEntity<List<CityDTO>> listsCity(City city) {
 		return new ResponseEntity<>(cityService.listsCity(), HttpStatus.OK);
 	}
 
 	@PostMapping
-	public ResponseEntity<City> createCity(@RequestBody @Valid City city) {
-		return new ResponseEntity<>(cityService.createCity(city), HttpStatus.CREATED);
+	public ResponseEntity<CityDTO> createCity(@RequestBody @Valid CityDTO cityDTO) {
+		return new ResponseEntity<>(cityService.createCity(cityDTO), HttpStatus.CREATED);
 	}
 
 	@PutMapping(value = "/{cityId}")
-	public ResponseEntity<City> updateCity(@PathVariable @Valid Long cityId, @RequestBody City city) {
-		return new ResponseEntity<>(cityService.updateCity(cityId, city), HttpStatus.OK);
+	public ResponseEntity<CityDTO> updateCity(@PathVariable @Valid Long cityId, @RequestBody CityDTO cityDTO) {
+		return new ResponseEntity<>(cityService.updateCity(cityId, cityDTO), HttpStatus.OK);
 	}
 
 	@DeleteMapping(value = "/{cityId}")
-	public ResponseEntity<City> deleteCity(@PathVariable Long cityId) {
+	public ResponseEntity<CityDTO> deleteCity(@PathVariable Long cityId) {
 		cityService.deleteCity(cityId);
 		return ResponseEntity.noContent().build();
 	}

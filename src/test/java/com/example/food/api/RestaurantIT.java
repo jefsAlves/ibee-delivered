@@ -40,7 +40,7 @@ public class RestaurantIT {
 	private RestaurantRepository restaurantRepository;
 
 	@BeforeEach
-	public void setUp() {
+	void setUp() {
 		RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
 		RestAssured.port = serverPort;
 		RestAssured.basePath = MessageUtilTests.PATH_RESOUCE_RESTAURANT;
@@ -49,7 +49,7 @@ public class RestaurantIT {
 	}
 	
 	@Test
-	public void shouldReturnStatus200_WhenGetRestaurant() {
+	void shouldReturnStatus200_WhenGetRestaurant() {
 		given()
 			.accept(ContentType.JSON)
 		.when()
@@ -59,7 +59,7 @@ public class RestaurantIT {
 	}
 	
 	@Test
-	public void validingRequestPathParam_WhenStatusCodeAndBodyIsValid_ShouldReturnSucess() {
+	void validingRequestPathParam_WhenStatusCodeAndBodyIsValid_ShouldReturnSucess() {
 		given()
 			.pathParam(MessageUtilTests.NAME_VARIABLE_RESTAURANT, MessageUtilTests.ID_RESTAURANT_VALID)
 			.accept(ContentType.JSON)
@@ -71,7 +71,7 @@ public class RestaurantIT {
 	}
 	
 	@Test
-	public void validingRequestQueryParam_WhenParamIsValid_ShoulReturnSucess() {
+	void validingRequestQueryParam_WhenParamIsValid_ShoulReturnSucess() {
 		given()
 			.queryParam("findByName", MessageUtilTests.RESTAURANT_NAME_VALUE)
 			.accept(ContentType.JSON)
@@ -82,7 +82,7 @@ public class RestaurantIT {
 	}
 	
 	@Test
-	public void validingRequestPathParam_WhenIdNotExist_ShouldRetunError() {
+	void validingRequestPathParam_WhenIdNotExist_ShouldRetunError() {
 		given()
 			.pathParam(MessageUtilTests.NAME_VARIABLE_RESTAURANT, MessageUtilTests.ID_RESTAURANT_VALID)
 			.accept(ContentType.JSON)
@@ -93,7 +93,7 @@ public class RestaurantIT {
 	}
 	
 	@Test
-	public void whenValidBodyRestaurant_ShouldReturnSucess() {
+	void whenValidBodyRestaurant_ShouldReturnSucess() {
 		given()
 			.accept(ContentType.JSON)
 		.when()

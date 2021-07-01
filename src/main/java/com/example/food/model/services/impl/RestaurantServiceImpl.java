@@ -5,14 +5,15 @@ import java.util.Optional;
 
 import javax.transaction.Transactional;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
+import com.example.food.model.dto.RestaurantDTO;
 import com.example.food.model.entities.Restaurant;
 import com.example.food.model.exceptions.IdNotFoudException;
 import com.example.food.model.exceptions.RestaurantException;
+import com.example.food.model.mapper.RestaurantMapper;
 import com.example.food.model.repository.RestaurantRepository;
 import com.example.food.model.services.RestaurantService;
 import com.example.food.model.util.MessageUtil;
@@ -27,6 +28,9 @@ public class RestaurantServiceImpl implements RestaurantService {
 	@Autowired
 	private ValidationRestaurant validationRestaurant;
 
+	@Autowired
+	private RestaurantMapper mapper;
+
 	@Override
 	public Restaurant searchRestaurant(Long id) {
 		Optional<Restaurant> findId = restaurantRepository.findById(id);
@@ -34,12 +38,12 @@ public class RestaurantServiceImpl implements RestaurantService {
 	}
 
 	@Override
-	public Restaurant searchRestaurantByName(String name) {
-		Restaurant restaurantName = restaurantRepository.searchNameRestaurant(name);
-		if (restaurantName == null) {
+	public RestaurantDTO searchRestaurantByName(String name) {
+		Restaurant restaurant = restaurantRepository.findByName(name);
+		if (restaurant == null) {
 			throw new RestaurantException(MessageUtil.RESTAURANT_NOT_EXIST);
 		}
-		return restaurantName;
+		return mapper.toDTO(restaurant);
 	}
 
 	@Override
@@ -50,18 +54,21 @@ public class RestaurantServiceImpl implements RestaurantService {
 
 	@Transactional
 	@Override
-	public Restaurant createRestaurant(Restaurant restaurant) {
+	public RestaurantDTO createRestaurant(RestaurantDTO restaurantDTO) {
+		Restaurant restaurant = mapper.toEntity(restaurantDTO);
 		validationRestaurant.verifyRestaurantExist(restaurant.getName());
-		return restaurantRepository.save(restaurant);
+		restaurant = restaurantRepository.save(restaurant);
+		return mapper.toDTO(restaurant);
 	}
 
 	@Transactional
 	@Override
-	public Restaurant updateRestaurant(Long id, Restaurant restaurant) {
-		Restaurant restaurantValid = validationRestaurant.verifyRestaurantExist(id);
-		BeanUtils.copyProperties(restaurant, restaurantValid, "id", "createDate", "updateDate", "address", "payments",
-				"products");
-		return restaurantRepository.save(restaurantValid);
+	public RestaurantDTO updateRestaurant(Long id, RestaurantDTO restaurantDTO) {
+		Restaurant restaurantBase = validationRestaurant.verifyRestaurantExist(id);
+		restaurantBase = mapper.toEntity(restaurantDTO);
+		mapper.copyProperties(restaurantDTO, restaurantBase);
+		restaurantBase = restaurantRepository.save(restaurantBase);
+		return mapper.toDTO(restaurantBase);
 	}
 
 	@Transactional

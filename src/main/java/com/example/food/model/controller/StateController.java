@@ -1,6 +1,7 @@
 package com.example.food.model.controller;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import javax.validation.Valid;
 
@@ -16,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.food.model.entities.State;
+import com.example.food.model.dto.StateDTO;
 import com.example.food.model.services.StateService;
 
 @RestController
@@ -27,27 +28,27 @@ public class StateController {
 	private StateService stateService;
 
 	@GetMapping(value = "/{stateId}")
-	public ResponseEntity<State> searchState(@PathVariable Long stateId) {
+	public ResponseEntity<StateDTO> searchState(@PathVariable Long stateId) {
 		return new ResponseEntity<>(stateService.searchState(stateId), HttpStatus.OK);
 	}
 
 	@GetMapping
-	public ResponseEntity<List<State>> listStates(State state) {
-		return new ResponseEntity<>(stateService.listStates(state), HttpStatus.OK);
+	public ResponseEntity<List<StateDTO>> listStates() {
+		return new ResponseEntity<>(stateService.listStates(), HttpStatus.OK);
 	}
 
 	@PostMapping
-	public ResponseEntity<State> createState(@RequestBody @Valid State state) {
-		return new ResponseEntity<>(stateService.createState(state), HttpStatus.CREATED);
+	public ResponseEntity<StateDTO> createState(@RequestBody @Valid StateDTO stateDTO) throws InterruptedException, ExecutionException {
+		return new ResponseEntity<>(stateService.createState(stateDTO), HttpStatus.CREATED);
 	}
 
 	@PutMapping(value = "/{stateId}")
-	public ResponseEntity<State> updateState(@PathVariable Long stateId, @Valid @RequestBody State state) {
-		return new ResponseEntity<>(stateService.updateState(stateId, state), HttpStatus.OK);
+	public ResponseEntity<StateDTO> updateState(@PathVariable Long stateId, @Valid @RequestBody StateDTO stateDTO) {
+		return new ResponseEntity<>(stateService.updateState(stateId, stateDTO), HttpStatus.OK);
 	}
 
 	@DeleteMapping(value = "/{stateId}")
-	public ResponseEntity<State> deleteState(@PathVariable Long stateId) {
+	public ResponseEntity<StateDTO> deleteState(@PathVariable Long stateId) {
 		stateService.deleteState(stateId);
 		return ResponseEntity.noContent().build();
 	}

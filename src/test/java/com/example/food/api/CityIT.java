@@ -25,18 +25,18 @@ import io.restassured.http.ContentType;
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @TestPropertySource(value = "/application-test.properties")
 public class CityIT {
-	
+
 	@LocalServerPort
 	private Integer serverPort;
-	
+
 	@Autowired
 	private DatabaseCleaner dataBaseCleaner;
-	
+
 	@Autowired
 	private CityRepository cityRepository;
-	
+
 	@BeforeEach
-	public void setUp() {
+	void setUp() {
 		RestAssured.basePath = MessageUtilTests.PATH_RESOURCE_CITY;
 		RestAssured.port = serverPort;
 		dataBaseCleaner.clearTables();
@@ -44,14 +44,9 @@ public class CityIT {
 	}
 
 	@Test
-	public void whenRequest_ByIdIsValid_ShouldReturnSucess() {
-		given()
-			.pathParam("cityId", 1)
-			.accept(ContentType.JSON)
-		.when()
-			.get("/{cityId}")
-		.then()
-			.statusCode(HttpStatus.OK.value());
+	void whenRequest_ByIdIsValid_ShouldReturnSucess() {
+		given().pathParam("cityId", 1).accept(ContentType.JSON).when().get("/{cityId}").then()
+				.statusCode(HttpStatus.OK.value());
 	}
 
 	private void createCity() {

@@ -28,15 +28,15 @@ public class KitchenIT {
 
 	@LocalServerPort
 	private Integer serverPort;
-	
+
 	@Autowired
-	private DatabaseCleaner databaseCleaner; 
-	
+	private DatabaseCleaner databaseCleaner;
+
 	@Autowired
-	private KitchenRepository kitchenRepository; 
+	private KitchenRepository kitchenRepository;
 
 	@BeforeEach
-	public void setUp() {
+	void setUp() {
 		RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
 		RestAssured.port = serverPort;
 		RestAssured.basePath = MessageUtilTests.PATH_RESOURCE_KITCHEN;
@@ -45,27 +45,18 @@ public class KitchenIT {
 	}
 
 	@Test
-	public void whenFindKitchenById_ShouldReturnSucess() {
-		given()
-			.pathParam(MessageUtilTests.NAME_VARIABLE_KITCHEN, MessageUtilTests.ID_KITCHEN_VALID)
-			.accept(ContentType.JSON)
-		.when()
-			.get(MessageUtilTests.PATH_VARIABLE_KITCHEN)
-		.then()
-			.statusCode(HttpStatus.OK.value());
+	void whenFindKitchenById_ShouldReturnSucess() {
+		given().pathParam(MessageUtilTests.NAME_VARIABLE_KITCHEN, MessageUtilTests.ID_KITCHEN_VALID)
+				.accept(ContentType.JSON).when().get(MessageUtilTests.PATH_VARIABLE_KITCHEN).then()
+				.statusCode(HttpStatus.OK.value());
 	}
-	
+
 	@Test
-	public void whenFindKitchenById_IdIsInvalid_ShouldReturnFail() {
-		given()
-			.pathParam(MessageUtilTests.NAME_VARIABLE_KITCHEN, MessageUtilTests.ID_KITCHEN_INVALID)
-			.accept(ContentType.JSON)
-		.when()
-			.get(MessageUtilTests.PATH_VARIABLE_KITCHEN)
-		.then()
-			.statusCode(HttpStatus.NOT_FOUND.value());
+	void whenFindKitchenById_IdIsInvalid_ShouldReturnFail() {
+		given().pathParam(MessageUtilTests.NAME_VARIABLE_KITCHEN, MessageUtilTests.ID_KITCHEN_INVALID)
+				.accept(ContentType.JSON).when().get(MessageUtilTests.PATH_VARIABLE_KITCHEN).then()
+				.statusCode(HttpStatus.NOT_FOUND.value());
 	}
-	
 
 	private void createDataKitchen() {
 		Kitchen kitchenFirst = new Kitchen();

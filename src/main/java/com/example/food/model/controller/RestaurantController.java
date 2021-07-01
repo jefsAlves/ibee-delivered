@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.food.model.dto.RestaurantDTO;
 import com.example.food.model.entities.Restaurant;
 import com.example.food.model.services.RestaurantService;
 
@@ -33,7 +34,7 @@ public class RestaurantController {
 	}
 
 	@GetMapping(value = "/search")
-	public ResponseEntity<Restaurant> searchRestaurant(@RequestParam(name = "findByName") String name) {
+	public ResponseEntity<RestaurantDTO> searchRestaurant(@RequestParam(name = "name") String name) {
 		return new ResponseEntity<>(restarauntService.searchRestaurantByName(name), HttpStatus.OK);
 	}
 
@@ -43,13 +44,14 @@ public class RestaurantController {
 	}
 
 	@PostMapping
-	public ResponseEntity<Restaurant> createRestaurant(@RequestBody @Valid Restaurant restaurant) {
-		return new ResponseEntity<Restaurant>(restarauntService.createRestaurant(restaurant), HttpStatus.CREATED);
+	public ResponseEntity<RestaurantDTO> createRestaurant(@RequestBody @Valid RestaurantDTO restaurantDTO) {
+		return new ResponseEntity<>(restarauntService.createRestaurant(restaurantDTO), HttpStatus.CREATED);
 	}
 
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<Restaurant> updateRestaurant(@PathVariable Long id, @RequestBody Restaurant restaurant) {
-		return new ResponseEntity<>(restarauntService.updateRestaurant(id, restaurant), HttpStatus.OK);
+	public ResponseEntity<RestaurantDTO> updateRestaurant(@PathVariable Long id,
+			@Valid @RequestBody RestaurantDTO restaurantDTO) {
+		return new ResponseEntity<>(restarauntService.updateRestaurant(id, restaurantDTO), HttpStatus.OK);
 	}
 
 	@DeleteMapping(value = "/{id}")
