@@ -31,15 +31,17 @@ public class CityMapper {
 	}
 
 	public List<City> toEntity(List<CityDTO> cityDTO) {
-		return modelMapper.map(cityDTO, new TypeToken<List<CityDTO>>() {}.getType());
+		return modelMapper.map(cityDTO, new TypeToken<List<CityDTO>>() {
+		}.getType());
 	}
 
 	public List<CityDTO> toDTOList(List<City> city) {
-		return modelMapper.map(city, new TypeToken<List<City>>() {}.getType());
+		return modelMapper.map(city, new TypeToken<List<City>>() {
+		}.getType());
 	}
 
 	public void copyProperties(CityDTO cityDTO, City city) {
-		cityDTO.setState(new State());
+		city.setState(new State());
 		modelMapper.map(cityDTO, city);
 	}
 

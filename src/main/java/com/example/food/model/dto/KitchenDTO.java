@@ -2,17 +2,23 @@ package com.example.food.model.dto;
 
 import java.util.List;
 
-import lombok.AllArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import lombok.Getter;
 import lombok.Setter;
 
-@AllArgsConstructor
 @Getter
 @Setter
 public class KitchenDTO {
 
+	@JsonProperty("id")
 	private Long id;
+
+	@JsonProperty("name")
 	private String name;
+
+	@JsonIgnore
 	private List<RestaurantDTO> restaurantDTO;
 
 }

@@ -6,28 +6,28 @@ import java.util.Map;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
-import org.springframework.kafka.support.serializer.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
+import org.springframework.kafka.support.serializer.JsonSerializer;
 import org.springframework.stereotype.Component;
 
 import com.example.food.model.dto.StateDTO;
 
 @Component
-public class KafkaConfig {
+public class KafkaConfigState {
 
-	@Value("${spring.kafka.producer.bootstrap-servers}")
+	@Value("${spring.cloud.stream.kafka.binder.brokers}")
 	private String bootstrapServer;
 
 	@Value("${spring.kafka.producer.group-id}")
 	private String consumerGroup;
 
-	@Bean
-	public KafkaProducer<String, StateDTO> kafkaProducer() {
+	@Bean("stateProducer")
+	public KafkaProducer<String, StateDTO> kafkaProducerState() {
 		return new KafkaProducer<>(configsProducer());
 	}
 
-	@Bean
+	@Bean("configProducerState")
 	public Map<String, Object> configsProducer() {
 		Map<String, Object> configs = new HashMap<>();
 		configs.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServer);

@@ -55,9 +55,9 @@ public class RestaurantServiceImpl implements RestaurantService {
 	@Transactional
 	@Override
 	public RestaurantDTO createRestaurant(RestaurantDTO restaurantDTO) {
-		Restaurant restaurant = mapper.toEntity(restaurantDTO);
+		var restaurant = mapper.toEntity(restaurantDTO);
 		validationRestaurant.verifyRestaurantExist(restaurant.getName());
-		restaurant = restaurantRepository.save(restaurant);
+		restaurantRepository.save(restaurant);
 		return mapper.toDTO(restaurant);
 	}
 
@@ -76,7 +76,7 @@ public class RestaurantServiceImpl implements RestaurantService {
 	public void deleteRestaurant(Long restaurantId) {
 		try {
 			restaurantRepository.deleteById(restaurantId);
-		}
+		} 
 		catch (EmptyResultDataAccessException e) {
 			throw new IdNotFoudException(MessageUtil.ID_NOT_FOUND);
 		}

@@ -1,3 +1,5 @@
+spring.application.name: algaworks
+
 spring:
   datasource:
     hikari:
@@ -22,16 +24,22 @@ spring:
       add-mappings: false
   kafka:
     producer:
-      bootstrap-servers: localhost:9092,localhost:9094
       group-id: 1
+      
   cloud:
     stream:
       kafka:
         binder: 
-          brokers: localhost:9092,localhost:9094 
+          brokers: localhost:9094
+          auto-create-topics: false
+          replication-factor: 1
+          health-timeout: 30
+           
       bindings:
-        topic:
+        topic-test:
           destination: teste
- 
-      
-      
+          content-type: application/json
+
+        topic-dev:
+          destination: dev
+          content-type: application/json

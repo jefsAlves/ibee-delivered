@@ -1,6 +1,7 @@
 package com.example.food.model.controller;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import javax.validation.Valid;
 
@@ -44,7 +45,7 @@ public class CityController {
 	}
 
 	@PostMapping
-	public ResponseEntity<CityDTO> createCity(@RequestBody @Valid CityDTO cityDTO) {
+	public ResponseEntity<CityDTO> createCity(@RequestBody @Valid CityDTO cityDTO) throws InterruptedException, ExecutionException{
 		return new ResponseEntity<>(cityService.createCity(cityDTO), HttpStatus.CREATED);
 	}
 

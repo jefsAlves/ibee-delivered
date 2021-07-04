@@ -2,6 +2,7 @@ package com.example.food.model.services.impl;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.ExecutionException;
 
 import javax.transaction.Transactional;
 
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
+import com.example.food.config.integration.SendCity;
 import com.example.food.model.dto.CityDTO;
 import com.example.food.model.entities.City;
 import com.example.food.model.exceptions.IdNotFoudException;
@@ -29,6 +31,9 @@ public class CityServiceImpl implements CityService {
 
 	@Autowired
 	private CityMapper mapper;
+
+	@Autowired
+	private SendCity integration;
 
 	@Override
 	public CityDTO searchCity(Long id) {
@@ -52,10 +57,11 @@ public class CityServiceImpl implements CityService {
 
 	@Transactional
 	@Override
-	public CityDTO createCity(CityDTO cityDTO) {
+	public CityDTO createCity(CityDTO cityDTO) throws InterruptedException, ExecutionException {
 		var city = mapper.toEntity(cityDTO);
 		validationCity.verifyCityExist(city.getName());
-		city = cityRepository.save(city);
+		cityRepository.save(city);
+		integration.sendMessage(cityDTO);
 		return mapper.toDTO(city);
 	}
 

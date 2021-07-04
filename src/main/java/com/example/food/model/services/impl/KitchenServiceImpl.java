@@ -2,11 +2,9 @@ package com.example.food.model.services.impl;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
@@ -36,7 +34,7 @@ public class KitchenServiceImpl implements KitchenService {
 	public KitchenDTO searchKitchen(Long id) {
 		Optional<Kitchen> kitchen = kitchenRepository.findById(id);
 		kitchen.orElseThrow(() -> new IdNotFoudException(MessageUtil.ID_NOT_FOUND));
-		return (KitchenDTO) kitchen.stream().map(src -> mapper.toDTO(src)).collect(Collectors.toList());
+		return mapper.toDTO(kitchen);
 	}
 
 	@Override
@@ -57,10 +55,10 @@ public class KitchenServiceImpl implements KitchenService {
 	@Transactional
 	@Override
 	public KitchenDTO updateKitchen(Long id, KitchenDTO kitchenDTO) {
-		Kitchen kitchen = validationKitchen.verifyKitchenExist(id);
-		BeanUtils.copyProperties(kitchenDTO, kitchen, "id", "restaurant");
-		kitchenRepository.save(kitchen);
-		return mapper.toDTO(kitchen);
+		var kitchenBase = validationKitchen.verifyKitchenExist(id);
+		mapper.copyProperties(kitchenDTO, kitchenBase);
+		kitchenRepository.save(kitchenBase);
+		return mapper.toDTO(kitchenBase);
 	}
 
 	@Transactional

@@ -8,6 +8,7 @@ services:
     - host.docker.internal:172.17.0.1
   kafka:
     image: confluentinc/cp-kafka:latest
+    hostname: c5023162630b
     depends_on:
     - zookeeper
     ports:
@@ -42,3 +43,12 @@ services:
     container_name: sonarqube
     ports:
     - 8030:9000
+  portainer:
+    image: portainer/portainer-ce
+    container_name: portainer
+    restart: always
+    volumes:
+    - ./var/run/docker.sock:/var/run/docker.sock
+    ports:
+    - 8001:8000
+    - 9001:9000

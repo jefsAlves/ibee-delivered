@@ -1,13 +1,10 @@
 package com.example.food.model.dto;
 
-import com.example.food.model.entities.State;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
-@AllArgsConstructor
 public class CityDTO {
 
 	@JsonProperty("id")
@@ -17,6 +14,6 @@ public class CityDTO {
 	private String name;
 
 	@JsonProperty("state")
-	private State state;
+	private StateDTO stateDTO;
 
 }

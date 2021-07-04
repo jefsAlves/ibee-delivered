@@ -2,14 +2,11 @@ package com.example.food.model.dto;
 
 import java.math.BigDecimal;
 
-import com.example.food.model.entities.Kitchen;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-@AllArgsConstructor
 @Getter
 @Setter
 public class RestaurantDTO {
@@ -23,6 +20,6 @@ public class RestaurantDTO {
 	private BigDecimal freigthRate;
 
 	@JsonProperty(value = "kitchen")
-	private Kitchen kitchen;
+	private KitchenDTO kitchenDTO;
 
 }

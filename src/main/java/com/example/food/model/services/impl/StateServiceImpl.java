@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
-import com.example.food.config.integration.StateIntegration;
+import com.example.food.config.integration.SendState;
 import com.example.food.model.dto.StateDTO;
 import com.example.food.model.entities.State;
 import com.example.food.model.exceptions.IdNotFoudException;
@@ -33,7 +33,7 @@ public class StateServiceImpl implements StateService {
 	private StateMapper mapper;
 
 	@Autowired
-	private StateIntegration stateIntegration;
+	private SendState integration;
 
 	@Override
 	public StateDTO searchState(Long id) {
@@ -51,10 +51,10 @@ public class StateServiceImpl implements StateService {
 	@Transactional
 	@Override
 	public StateDTO createState(StateDTO stateDTO) throws InterruptedException, ExecutionException {
-		stateIntegration.sendMessage(stateDTO);
 		var state = mapper.toEntity(stateDTO);
 		validationState.verifyStateExist(state.getName());
 		stateRepository.save(state);
+		integration.sendMessage(stateDTO);
 		return mapper.toDTO(state);
 	}
 

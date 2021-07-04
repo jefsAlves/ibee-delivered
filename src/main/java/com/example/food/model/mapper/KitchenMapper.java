@@ -1,6 +1,7 @@
 package com.example.food.model.mapper;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
@@ -30,6 +31,14 @@ public class KitchenMapper {
 
 	public List<Kitchen> toEntityList(List<KitchenDTO> kitchenDTO) {
 		return kitchenDTO.stream().map(src -> toEntity(src)).collect(Collectors.toList());
+	}
+
+	public KitchenDTO toDTO(Optional<Kitchen> kitchen) {
+		return modelMapper.map(kitchen, KitchenDTO.class);
+	}
+
+	public void copyProperties(KitchenDTO kitchenDTO, Kitchen kitchen) {
+		modelMapper.map(kitchenDTO.getName(), kitchen.getName());
 	}
 
 }
