@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
+import com.example.food.config.integration.SendKitchen;
 import com.example.food.model.dto.KitchenDTO;
 import com.example.food.model.entities.Kitchen;
 import com.example.food.model.exceptions.IdNotFoudException;
@@ -30,6 +31,9 @@ public class KitchenServiceImpl implements KitchenService {
 	@Autowired
 	private KitchenMapper mapper;
 
+	@Autowired
+	private SendKitchen integration;
+
 	@Override
 	public KitchenDTO searchKitchen(Long id) {
 		Optional<Kitchen> kitchen = kitchenRepository.findById(id);
@@ -49,6 +53,7 @@ public class KitchenServiceImpl implements KitchenService {
 		var kitchen = mapper.toEntity(kitchenDTO);
 		validationKitchen.verifyKitchenExist(kitchen.getName());
 		kitchenRepository.save(kitchen);
+		integration.sendMessage(kitchenDTO);
 		return mapper.toDTO(kitchen);
 	}
 

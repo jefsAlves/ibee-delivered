@@ -36,10 +36,20 @@ spring:
           health-timeout: 30
            
       bindings:
-        topic-test:
-          destination: teste
+        topic-restaurant:
+          destination: restaurant
           content-type: application/json
-
-        topic-dev:
-          destination: dev
+          
+        topic-kitchen:
+          destination: kitchen
           content-type: application/json
+        
+        topic-city:
+          destination: city  
+          content-type: application/json
+       
+        topic-state:
+          destination: state
+          content-type: application/json   
+          
+        

@@ -22,4 +22,7 @@ public class RestaurantDTO {
 	@JsonProperty(value = "kitchen")
 	private KitchenDTO kitchenDTO;
 
+	@JsonProperty("statusActive")
+	private Boolean statusCode;
+
 }

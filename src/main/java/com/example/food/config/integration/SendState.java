@@ -19,7 +19,7 @@ public class SendState {
 	@Qualifier("stateProducer")
 	private KafkaProducer<String, StateDTO> kafkaProducer;
 
-	@Value("${spring.cloud.stream.bindings.topic-test.destination}")
+	@Value("${spring.cloud.stream.bindings.topic-state.destination}")
 	private String topic;
 
 	public void sendMessage(@RequestBody StateDTO stateDTO) throws InterruptedException, ExecutionException {

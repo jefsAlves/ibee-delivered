@@ -18,5 +18,9 @@ public interface RestaurantService {
 	RestaurantDTO updateRestaurant(Long id, RestaurantDTO restaurant);
 
 	void deleteRestaurant(Long id);
+	
+	void activeRestaurant(Long id);
+	
+	void desactiveRestaurant(Long id);
 
 }

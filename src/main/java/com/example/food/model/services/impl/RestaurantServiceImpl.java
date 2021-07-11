@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
+import com.example.food.config.integration.SendRestaurant;
 import com.example.food.model.dto.RestaurantDTO;
 import com.example.food.model.entities.Restaurant;
 import com.example.food.model.exceptions.IdNotFoudException;
@@ -30,6 +31,9 @@ public class RestaurantServiceImpl implements RestaurantService {
 
 	@Autowired
 	private RestaurantMapper mapper;
+
+	@Autowired
+	private SendRestaurant integration;
 
 	@Override
 	public Restaurant searchRestaurant(Long id) {
@@ -58,6 +62,7 @@ public class RestaurantServiceImpl implements RestaurantService {
 		var restaurant = mapper.toEntity(restaurantDTO);
 		validationRestaurant.verifyRestaurantExist(restaurant.getName());
 		restaurantRepository.save(restaurant);
+		integration.sendMessage(restaurantDTO);
 		return mapper.toDTO(restaurant);
 	}
 
@@ -76,10 +81,22 @@ public class RestaurantServiceImpl implements RestaurantService {
 	public void deleteRestaurant(Long restaurantId) {
 		try {
 			restaurantRepository.deleteById(restaurantId);
-		} 
-		catch (EmptyResultDataAccessException e) {
+		} catch (EmptyResultDataAccessException e) {
 			throw new IdNotFoudException(MessageUtil.ID_NOT_FOUND);
 		}
+	}
+
+	@Transactional
+	public void activeRestaurant(Long activeId) {
+		var restaurant = searchRestaurant(activeId);
+		restaurant.active();
+	}
+
+	@Transactional
+	public void desactiveRestaurant(Long desactiveId) {
+		var restaurant = searchRestaurant(desactiveId);
+		restaurant.desactive();
+
 	}
 
 }

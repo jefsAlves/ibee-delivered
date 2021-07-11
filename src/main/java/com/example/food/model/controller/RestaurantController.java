@@ -26,37 +26,48 @@ import com.example.food.model.services.RestaurantService;
 public class RestaurantController {
 
 	@Autowired
-	private RestaurantService restarauntService;
+	private RestaurantService restaurantService;
 
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<Restaurant> searchRestaraunt(@PathVariable Long id) {
-		return new ResponseEntity<>(restarauntService.searchRestaurant(id), HttpStatus.OK);
+		return new ResponseEntity<>(restaurantService.searchRestaurant(id), HttpStatus.OK);
 	}
 
 	@GetMapping(value = "/search")
 	public ResponseEntity<RestaurantDTO> searchRestaurant(@RequestParam(name = "name") String name) {
-		return new ResponseEntity<>(restarauntService.searchRestaurantByName(name), HttpStatus.OK);
+		return new ResponseEntity<>(restaurantService.searchRestaurantByName(name), HttpStatus.OK);
 	}
 
 	@GetMapping
 	public ResponseEntity<List<Restaurant>> listsRestaurants(Restaurant restaurant) {
-		return new ResponseEntity<>(restarauntService.listsRestaurants(restaurant), HttpStatus.OK);
+		return new ResponseEntity<>(restaurantService.listsRestaurants(restaurant), HttpStatus.OK);
 	}
 
 	@PostMapping
 	public ResponseEntity<RestaurantDTO> createRestaurant(@RequestBody @Valid RestaurantDTO restaurantDTO) {
-		return new ResponseEntity<>(restarauntService.createRestaurant(restaurantDTO), HttpStatus.CREATED);
+		return new ResponseEntity<>(restaurantService.createRestaurant(restaurantDTO), HttpStatus.CREATED);
 	}
 
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<RestaurantDTO> updateRestaurant(@PathVariable Long id,
-			@Valid @RequestBody RestaurantDTO restaurantDTO) {
-		return new ResponseEntity<>(restarauntService.updateRestaurant(id, restaurantDTO), HttpStatus.OK);
+	public ResponseEntity<RestaurantDTO> updateRestaurant(@PathVariable Long id, @Valid @RequestBody RestaurantDTO restaurantDTO) {
+		return new ResponseEntity<>(restaurantService.updateRestaurant(id, restaurantDTO), HttpStatus.OK);
+	}
+
+	@PutMapping(value = "/{activeId}/active")
+	public ResponseEntity<RestaurantDTO> activeRestaurant(@PathVariable Long activeId) {
+		restaurantService.activeRestaurant(activeId);
+		return ResponseEntity.noContent().build();
+	}
+
+	@DeleteMapping(value = "/{desactiveId}/desactive")
+	public ResponseEntity<RestaurantDTO> desactiveRestaurant(@PathVariable Long desactiveId) {
+		restaurantService.desactiveRestaurant(desactiveId);
+		return ResponseEntity.noContent().build();
 	}
 
 	@DeleteMapping(value = "/{id}")
-	public ResponseEntity<Restaurant> deleteRestaurant(@PathVariable Long id) {
-		restarauntService.deleteRestaurant(id);
+	public ResponseEntity<RestaurantDTO> deleteRestaurant(@PathVariable Long id) {
+		restaurantService.deleteRestaurant(id);
 		return ResponseEntity.noContent().build();
 	}
 

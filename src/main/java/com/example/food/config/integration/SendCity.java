@@ -19,7 +19,7 @@ public class SendCity {
 	@Qualifier("cityProducer")
 	private KafkaProducer<String, CityDTO> kafkaProducer;
 
-	@Value("${spring.cloud.stream.bindings.topic-dev.destination}")
+	@Value("${spring.cloud.stream.bindings.topic-city.destination}")
 	private String topic;
 
 	public void sendMessage(@RequestBody CityDTO cityDTO) throws InterruptedException, ExecutionException {
