@@ -29,7 +29,7 @@ public class RestaurantController {
 	private RestaurantService restaurantService;
 
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<Restaurant> searchRestaraunt(@PathVariable Long id) {
+	public ResponseEntity<RestaurantDTO> searchRestaraunt(@PathVariable Long id) {
 		return new ResponseEntity<>(restaurantService.searchRestaurant(id), HttpStatus.OK);
 	}
 

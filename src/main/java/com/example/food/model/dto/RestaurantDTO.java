@@ -11,18 +11,22 @@ import lombok.Setter;
 @Setter
 public class RestaurantDTO {
 
+	@JsonProperty("id")
 	private Long id;
 
-	@JsonProperty(value = "name")
+	@JsonProperty("name")
 	private String name;
 
-	@JsonProperty(value = "freigthRate")
+	@JsonProperty("freigthRate")
 	private BigDecimal freigthRate;
 
-	@JsonProperty(value = "kitchen")
+	@JsonProperty("kitchen")
 	private KitchenDTO kitchenDTO;
 
 	@JsonProperty("statusActive")
 	private Boolean statusCode;
+
+	@JsonProperty("address")
+	private AddressDTO addressDTO;
 
 }

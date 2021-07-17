@@ -1,6 +1,5 @@
 package com.example.food.model.entities;
 
-import java.time.LocalDateTime;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -13,45 +12,31 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @Entity
-@Table(name = "tb_users")
+@Table(name = "tb_group")
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class Users {
+public class Groups {
 
 	@EqualsAndHashCode.Include
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(name = "user")
-	private String user;
-
-	@Column(name = "password")
-	private String password;
-
-	@CreationTimestamp
-	@Column(nullable = false, columnDefinition = "datetime")
-	private LocalDateTime createDate;
-
-	@UpdateTimestamp
-	@Column(nullable = false, columnDefinition = "datetime")
-	private LocalDateTime updateDate;
+	@Column(name = "name")
+	private String name;
 
 	@JsonIgnore
 	@ManyToMany
 	@JoinTable(
-	name = "tb_user_group",
-	joinColumns = @JoinColumn(name = "user_id"),
-	inverseJoinColumns = @JoinColumn(name = "group_id"))
-	private Set<Groups> group;
+	name = "tb_group_permission",
+	joinColumns  = @JoinColumn(name = "group_id"),
+	inverseJoinColumns = @JoinColumn(name = "permission_id"))
+	private Set<Permissions> permissions;
 
 }

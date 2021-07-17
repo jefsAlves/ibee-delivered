@@ -71,6 +71,8 @@ INSERT INTO tb_permissions (id, description) VALUES (2, 'user');
 
 INSERT INTO tb_group (id, name) VALUES (1, 'clients');
 INSERT INTO tb_group (id, name) VALUES (2, 'clients_golden');
+INSERT INTO tb_group (id, name) VALUES (3, 'manager');
+INSERT INTO tb_group (id, name) VALUES (4, 'sales');
 
 INSERT INTO tb_group_permission (group_id, permission_id) VALUES (1, 1);
 INSERT INTO tb_group_permission (group_id, permission_id) VALUES (1, 2);

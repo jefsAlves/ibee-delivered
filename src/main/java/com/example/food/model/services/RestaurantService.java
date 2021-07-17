@@ -7,7 +7,7 @@ import com.example.food.model.entities.Restaurant;
 
 public interface RestaurantService {
 
-	Restaurant searchRestaurant(Long id);
+	RestaurantDTO searchRestaurant(Long id);
 
 	RestaurantDTO searchRestaurantByName(String name);
 
@@ -18,9 +18,9 @@ public interface RestaurantService {
 	RestaurantDTO updateRestaurant(Long id, RestaurantDTO restaurant);
 
 	void deleteRestaurant(Long id);
-	
+
 	void activeRestaurant(Long id);
-	
+
 	void desactiveRestaurant(Long id);
 
 }

@@ -21,7 +21,7 @@ public class SendRestaurant {
 	private String topic;
 
 	public void sendMessage(@RequestBody RestaurantDTO restaurantDTO) {
-		ProducerRecord<String, RestaurantDTO> record = new ProducerRecord<String, RestaurantDTO>(topic, restaurantDTO);
+		ProducerRecord<String, RestaurantDTO> record = new ProducerRecord<>(topic, restaurantDTO);
 		kafkaProducer.send(record);
 	}
 

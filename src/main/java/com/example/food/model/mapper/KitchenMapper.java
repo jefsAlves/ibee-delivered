@@ -34,7 +34,10 @@ public class KitchenMapper {
 	}
 
 	public KitchenDTO toDTO(Optional<Kitchen> kitchen) {
-		return modelMapper.map(kitchen, KitchenDTO.class);
+		KitchenDTO kitchenDTO = new KitchenDTO();
+		kitchenDTO.setId(kitchen.get().getId());
+		kitchenDTO.setName(kitchen.get().getName());
+		return kitchenDTO;
 	}
 
 	public void copyProperties(KitchenDTO kitchenDTO, Kitchen kitchen) {
