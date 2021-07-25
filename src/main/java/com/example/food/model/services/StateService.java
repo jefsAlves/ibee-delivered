@@ -13,7 +13,7 @@ public interface StateService {
 
 	StateDTO createState(StateDTO stateDTO) throws InterruptedException, ExecutionException;
 
-	StateDTO updateState(Long id, StateDTO ststateDTOastateDTOte);
+	StateDTO updateState(Long id, StateDTO stateDTO);
 
 	void deleteState(Long id);
 

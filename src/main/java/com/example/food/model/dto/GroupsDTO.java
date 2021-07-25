@@ -11,7 +11,7 @@ import lombok.Setter;
 @Setter
 public class GroupsDTO {
 
-	@JsonProperty("group")
+	@JsonProperty("group_id")
 	private Long id;
 
 	@JsonProperty("name")

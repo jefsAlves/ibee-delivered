@@ -9,12 +9,14 @@ spring:
     password: admin
     url: jdbc:mysql://localhost/algafood?createDatabaseIfNotExist=true&serverTimezone=UTC
     username: root
+    
   flyway:
     locations: classpath:db/migration,classpath:db/testData
   jackson:
     deserialization:
       fail-on-ignored-properties: true
       fail-on-unknown-properties: true
+      
   jpa:
     show-sql: true
   mvc:
@@ -22,6 +24,7 @@ spring:
   web:
     resources:
       add-mappings: false
+      
   kafka:
     producer:
       group-id: 1
@@ -31,9 +34,8 @@ spring:
       kafka:
         binder: 
           brokers: localhost:9094
-          auto-create-topics: false
+          auto-create-topics: true
           replication-factor: 1
-          health-timeout: 30
            
       bindings:
         topic-restaurant:
@@ -50,6 +52,5 @@ spring:
        
         topic-state:
           destination: state
-          content-type: application/json   
+          content-type: application/json
           
-        

@@ -12,7 +12,7 @@ public interface GroupsService {
 
 	GroupsDTO createGroup(GroupsDTO groupsDTO);
 
-	GroupsDTO updateGroups(GroupsDTO groupsDTO);
+	GroupsDTO updateGroups(Long groupdId, GroupsDTO groupsDTO);
 
 	void deleteGroup(Long groupId);
 

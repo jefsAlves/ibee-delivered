@@ -23,6 +23,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 import com.example.food.model.entities.ResponseBodyFields;
 import com.example.food.model.entities.enums.ErrorType;
+import com.example.food.model.exceptions.BusinessException;
 import com.example.food.model.exceptions.CityException;
 import com.example.food.model.exceptions.IdNotFoudException;
 import com.example.food.model.exceptions.KitchenException;
@@ -79,6 +80,15 @@ public class ExceptionHandler extends ResponseEntityExceptionHandler {
 	public ResponseEntity<?> stateException(StateException e, WebRequest request) {
 		HttpStatus statusCode = HttpStatus.BAD_REQUEST;
 		ErrorType problem = ErrorType.STATE_ALREADY_EXIST;
+		String detail = e.getMessage();
+		ResponseBody body = createBuilderResponseBody(statusCode, problem, detail).build();
+		return handleExceptionInternal(e, body, new HttpHeaders(), statusCode, request);
+	}
+	
+	@org.springframework.web.bind.annotation.ExceptionHandler(BusinessException.class)
+	public ResponseEntity<?> businessException(BusinessException e, WebRequest request) {
+		HttpStatus statusCode = HttpStatus.BAD_REQUEST;
+		ErrorType problem = ErrorType.EMAIL_ALREADY_EXIST;
 		String detail = e.getMessage();
 		ResponseBody body = createBuilderResponseBody(statusCode, problem, detail).build();
 		return handleExceptionInternal(e, body, new HttpHeaders(), statusCode, request);
@@ -191,10 +201,13 @@ public class ExceptionHandler extends ResponseEntityExceptionHandler {
 		return reference.stream().map(e -> e.getFieldName()).collect(Collectors.joining("."));
 	}
 
-	private ResponseBody.ResponseBodyBuilder createBuilderResponseBody(HttpStatus statusCode, ErrorType problemType,
-			String detail) {
-		return ResponseBody.builder().status(statusCode.value()).type(problemType.getUri())
-				.title(problemType.getTitle()).detail(detail).timestamp(LocalDateTime.now());
+	private ResponseBody.ResponseBodyBuilder createBuilderResponseBody(HttpStatus statusCode, ErrorType problemType, String detail) {
+		return ResponseBody.builder()
+		.status(statusCode.value())
+		.type(problemType.getUri())
+		.title(problemType.getTitle())
+		.detail(detail)
+		.timestamp(LocalDateTime.now());
 	}
 
 	@Override

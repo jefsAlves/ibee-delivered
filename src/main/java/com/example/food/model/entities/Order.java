@@ -67,7 +67,7 @@ public class Order {
 
 	@ManyToOne
 	@JoinColumn(name = "user_id", nullable = false)
-	private Users users;
+	private User users;
 
 	@OneToMany(mappedBy = "order")
 	private List<OrderItem> orderItem;

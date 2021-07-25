@@ -10,6 +10,7 @@ public enum ErrorType {
 	KITCHEN_ALREADY_EXIST("kitchen", "resource already exist"),
 	CITY_ALREADY_EXIST("city", "resource already exist"),
 	STATE_ALREADY_EXIST("state", "resource already exist"),
+	EMAIL_ALREADY_EXIST("email", "resource already exist"),
 	INVALID_BODY("", "error body"),
 	INVALID_PARAM("", "invalid param in url"),
 	INVALID_RESOURCE("", "resource not found"),

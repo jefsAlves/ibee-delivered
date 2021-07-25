@@ -72,7 +72,8 @@ public class StateServiceImpl implements StateService {
 	public void deleteState(Long id) {
 		try {
 			stateRepository.deleteById(id);
-		} catch (EmptyResultDataAccessException e) {
+		} 
+		catch (EmptyResultDataAccessException e) {
 			throw new IdNotFoudException(MessageUtil.ID_NOT_FOUND);
 		}
 	}

@@ -8,7 +8,7 @@ services:
       ZOOKEEPER_CLIENT_PORT: 2181
     extra_hosts:
     - host.docker.internal:172.17.0.1
-  
+    
   kafka:
     image: confluentinc/cp-kafka:latest
     container_name: kafka-cluster
@@ -17,6 +17,7 @@ services:
     - zookeeper
     ports:
     - 9092:9092
+    - 9093:9093
     - 9094:9094
     environment:
       KAFKA_BROKER_ID: 1
@@ -28,7 +29,7 @@ services:
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INTERNAL:PLAINTEXT,OUTSIDE:PLAINTEXT
     extra_hosts:
     - host.docker.internal:172.17.0.1
-  
+    
   control-center:
     image: confluentinc/cp-enterprise-control-center:6.0.1
     container_name: control-center
@@ -44,4 +45,64 @@ services:
       PORT: 9021
     extra_hosts:
     - host.docker.internal:172.17.0.1
+    
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.13.0
+    container_name: elasticsearch
+    environment:
+    - node.name=elasticsearch
+    - cluster.name=es-docker-cluster
+    - bootstrap.memory_lock=true
+    - ES_JAVA_OPTS=-Xms512m -Xmx512m
+    - http.cors.enabled=true
+    - http.cors.allow-origin="*"
+    - discovery.type=single-node
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+    - ./elasticsearch_data:/usr/share/elasticsearch/data
+    ports:
+    - 9200:9200
+    
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.13.0
+    container_name: kibana
+    ports:
+    - 5601:5601
+    environment:
+      ELASTICSEARCH_URL: http://elasticsearch:9200
+      ELASTICSEARCH_HOSTS: '["http://elasticsearch:9200"]'
+      
+  metricbeat:
+    build:
+      context: ./docker/beats/metric/
+    container_name: metricbeat
+    user: root
+    command: metricbeat -e -strict.perms=false
+    volumes:
+    - /var/run/docker.sock:/var/run/docker.sock
+    - ./docker/beats/metric/metricbeat.yml:/usr/share/metricbeat/metricbeat.yml
+    restart: on-failure
+    
+  heartbeat:
+    image: docker.elastic.co/beats/heartbeat:7.13.0
+    container_name: heartbeat
+    command: heartbeat -e -strict.perms=false
+    volumes:
+    - ./docker/beats/heartbeat/heartbeat.yml:/usr/share/heartbeat/heartbeat.yml
+    environment:
+    - setup.kibana.host=kibana:5601
+    
+  apm:
+    image: docker.elastic.co/apm/apm-server-oss:7.13.0
+    container_name: apm
+    command: -strict.perms=false
+    volumes:
+    - ./docker/apm/apm-server.yml:/usr/share/apm-server/apm-server.yml
+    ports:
+    - 8200:8200
+    restart: on-failure
+    
     

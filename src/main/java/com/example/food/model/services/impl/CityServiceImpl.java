@@ -35,6 +35,8 @@ public class CityServiceImpl implements CityService {
 	@Autowired
 	private SendCity integration;
 
+//	private Logger logger = LoggerFactory.getLogger(CityServiceImpl.class);
+
 	@Override
 	public CityDTO searchCity(Long id) {
 		Optional<City> city = cityRepository.findById(id);
