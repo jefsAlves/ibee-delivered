@@ -12,6 +12,7 @@ target/
 .settings
 .springBeans
 .sts4-cache
+elasticsearch_data/*
 
 ### IntelliJ IDEA ###
 .idea

@@ -40,7 +40,7 @@ public class RestaurantController {
 
 	@GetMapping
 	public ResponseEntity<List<Restaurant>> listsRestaurants(Restaurant restaurant) {
-		return new ResponseEntity<>(restaurantService.listsRestaurants(restaurant), HttpStatus.OK);
+		return new ResponseEntity<>(restaurantService.listRestaurants(restaurant), HttpStatus.OK);
 	}
 
 	@PostMapping

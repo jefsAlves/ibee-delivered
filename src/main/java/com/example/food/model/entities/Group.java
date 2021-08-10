@@ -38,5 +38,13 @@ public class Group {
 	joinColumns  = @JoinColumn(name = "group_id"),
 	inverseJoinColumns = @JoinColumn(name = "permission_id"))
 	private Set<Permissions> permissions;
+	
+	public void addPermission(Permissions permissions) {
+		getPermissions().add(permissions);
+	}
+	
+	public void removePermission(Permissions permissions) {
+		getPermissions().remove(permissions);
+	}
 
 }

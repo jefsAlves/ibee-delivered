@@ -1,4 +1,4 @@
-spring.application.name: algaworks
+spring.application.name: ibee
 
 spring:
   datasource:
@@ -7,7 +7,7 @@ spring:
       maximum-pool-size: 30
       minimum-idle: 20
     password: admin
-    url: jdbc:mysql://localhost/algafood?createDatabaseIfNotExist=true&serverTimezone=UTC
+    url: jdbc:mysql://localhost/ibee?createDatabaseIfNotExist=true&serverTimezone=UTC
     username: root
     
   flyway:
@@ -18,12 +18,15 @@ spring:
       fail-on-unknown-properties: true
       
   jpa:
+#    properties.javax.persistence.schema-generation.scripts.action: create
+#    properties.javax.persistence.schema-generation.scripts.create-target: src/main/resources/ddl.sql
     show-sql: true
   mvc:
     throw-exception-if-no-handler-found: true
   web:
     resources:
       add-mappings: false
+#      spring.jpa.properties.javax.persistence.schema-generation.scripts.action
       
   kafka:
     producer:
@@ -53,4 +56,8 @@ spring:
         topic-state:
           destination: state
           content-type: application/json
+          
+        topic-product:
+          destination: product
+          content-type: application/json  
           

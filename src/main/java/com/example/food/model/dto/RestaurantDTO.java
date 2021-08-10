@@ -20,11 +20,14 @@ public class RestaurantDTO {
 	@JsonProperty("freigthRate")
 	private BigDecimal freigthRate;
 
+	@JsonProperty("status")
+	private Boolean status;
+
+	@JsonProperty("open")
+	private Boolean open;
+	
 	@JsonProperty("kitchen")
 	private KitchenDTO kitchenDTO;
-
-	@JsonProperty("statusActive")
-	private Boolean statusCode;
 
 	@JsonProperty("address")
 	private AddressDTO addressDTO;

@@ -7,11 +7,13 @@ import com.example.food.model.entities.Restaurant;
 
 public interface RestaurantService {
 
+	Restaurant search(Long restaurantId);
+
 	RestaurantDTO searchRestaurant(Long id);
 
 	RestaurantDTO searchRestaurantByName(String name);
 
-	List<Restaurant> listsRestaurants(Restaurant restaurant);
+	List<Restaurant> listRestaurants(Restaurant restaurant);
 
 	RestaurantDTO createRestaurant(RestaurantDTO restaurantDTO);
 

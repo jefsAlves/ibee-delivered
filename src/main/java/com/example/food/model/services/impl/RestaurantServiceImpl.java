@@ -36,6 +36,12 @@ public class RestaurantServiceImpl implements RestaurantService {
 	private SendRestaurant integration;
 
 	@Override
+	public Restaurant search(Long restaurantId) {
+		Optional<Restaurant> restaurant = restaurantRepository.findById(restaurantId);
+		return restaurant.orElseThrow(() -> new IdNotFoudException(MessageUtil.ID_NOT_FOUND));
+	}
+	
+	@Override
 	public RestaurantDTO searchRestaurant(Long id) {
 		Optional<Restaurant> restaurant = restaurantRepository.findById(id);
 		restaurant.orElseThrow(() -> new IdNotFoudException(MessageUtil.ID_NOT_FOUND));
@@ -52,7 +58,7 @@ public class RestaurantServiceImpl implements RestaurantService {
 	}
 
 	@Override
-	public List<Restaurant> listsRestaurants(Restaurant restaurant) {
+	public List<Restaurant> listRestaurants(Restaurant restaurant) {
 		List<Restaurant> findRestaurant = restaurantRepository.findAll();
 		return findRestaurant;
 	}
@@ -82,22 +88,22 @@ public class RestaurantServiceImpl implements RestaurantService {
 	public void deleteRestaurant(Long restaurantId) {
 		try {
 			restaurantRepository.deleteById(restaurantId);
-		} catch (EmptyResultDataAccessException e) {
+		} 
+		catch (EmptyResultDataAccessException e) {
 			throw new IdNotFoudException(MessageUtil.ID_NOT_FOUND);
 		}
 	}
 
 	@Transactional
 	public void activeRestaurant(Long activeId) {
-		var restaurant = searchRestaurant(activeId);
-		restaurant.setStatusCode(true);
-
+		var restaurant = search(activeId);
+		restaurant.active();
 	}
 
 	@Transactional
 	public void desactiveRestaurant(Long desactiveId) {
-		var restaurant = searchRestaurant(desactiveId);
-		restaurant.setStatusCode(true);
+		var restaurant = search(desactiveId);
+		restaurant.desactive();
 	}
 
 }

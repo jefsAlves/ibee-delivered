@@ -23,6 +23,6 @@ public class UserDTO {
 	private String password;
 
 	@JsonIgnore
-	private Set<GroupsDTO> groups;
+	private Set<GroupDTO> groups;
 
 }

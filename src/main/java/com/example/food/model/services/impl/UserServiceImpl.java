@@ -18,42 +18,48 @@ import com.example.food.model.exceptions.CannotDeleteException;
 import com.example.food.model.exceptions.IdNotFoudException;
 import com.example.food.model.mapper.UsersMapper;
 import com.example.food.model.repository.UsersRepository;
-import com.example.food.model.services.UsersService;
+import com.example.food.model.services.UserService;
 import com.example.food.model.util.MessageUtil;
 import com.example.food.model.util.UsersUtil;
 
 @Service
-public class UserServiceImpl implements UsersService {
+public class UserServiceImpl implements UserService {
 
 	@Autowired
-	private UsersRepository usersRepository;
+	private UsersRepository userRepository;
 
 	@Autowired
 	private UsersMapper mapper;
 
 	@Autowired
 	private UsersUtil userUtil;
-
+	
 	@Override
-	public List<UserDTO> listsUsers() {
-		return mapper.toDTOList(usersRepository.findAll());
+	public User search(Long userId) {
+		Optional<User> user = userRepository.findById(userId);
+		return user.orElseThrow(() -> new IdNotFoudException(MessageUtil.ID_NOT_FOUND));
 	}
 
 	@Override
 	public UserDTO searchUser(Long userId) {
-		Optional<User> users = usersRepository.findById(userId);
+		Optional<User> users = userRepository.findById(userId);
 		users.orElseThrow(() -> new IdNotFoudException(MessageUtil.ID_NOT_FOUND));
 		UserDTO usersDTO = new UserDTO();
 		mapper.copyProperties(users, usersDTO);
 		return usersDTO;
 	}
 
+	@Override
+	public List<UserDTO> listsUsers() {
+		return mapper.toDTOList(userRepository.findAll());
+	}
+	
 	@Transactional
 	@Override
 	public UserDTO createUser(UserDTO userDTO) {
 		var users = mapper.toEntity(userDTO);
 		userUtil.verifyUserExist(users.getUser());
-		usersRepository.save(users);
+		userRepository.save(users);
 		return mapper.toDTO(users);
 	}
 	
@@ -62,7 +68,7 @@ public class UserServiceImpl implements UsersService {
 	public UserDTO updateUser(Long userId, UserDTO userDTO) {
 		var users = userUtil.verifyUserExist(userId);
 		mapper.copyProperties(userDTO, users);
-		usersRepository.save(users);
+		userRepository.save(users);
 		return userDTO;
 	}
 
@@ -80,7 +86,7 @@ public class UserServiceImpl implements UsersService {
 	@Override
 	public void deleteUser(Long userId) {
 		try {
-			usersRepository.deleteById(userId);
+			userRepository.deleteById(userId);
 		} 
 		catch (DataIntegrityViolationException e) {
 			throw new CannotDeleteException(MessageUtil.CANNOT_DELETE);

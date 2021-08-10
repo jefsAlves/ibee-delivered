@@ -16,14 +16,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.food.model.dto.UserDTO;
 import com.example.food.model.dto.UserPasswordDTO;
-import com.example.food.model.services.UsersService;
+import com.example.food.model.services.UserService;
 
 @RestController
 @RequestMapping(value = "/users")
 public class UsersController {
 
 	@Autowired
-	private UsersService usersService;
+	private UserService usersService;
 
 	@GetMapping(value = "/{userId}")
 	public ResponseEntity<UserDTO> searchUser(@PathVariable Long userId) {

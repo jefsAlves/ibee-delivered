@@ -58,12 +58,7 @@ public class Restaurant {
 	@Column(nullable = false, columnDefinition = "datetime")
 	private LocalDateTime updateDate;
 
-//	@JsonIgnoreProperties(value = "name", allowGetters = true)
 	@Valid
-//	@ConvertGroup(from = Default.class, to = KitchenId.class)
-//	@NotNull
-//	@JsonIgnore
-//	@JsonIgnoreProperties("hibernateLazyInitializer")
 	@ManyToOne
 	@JoinColumn(name = "kitchen_id")
 	private Kitchen kitchen;
@@ -74,25 +69,51 @@ public class Restaurant {
 
 	@JsonIgnore
 	@ManyToMany
-	@JoinTable(
-	name = "tb_restaurant_payment", 
+	@JoinTable
+	(name = "tb_restaurant_payment", 
 	joinColumns = @JoinColumn(name = "restaurant_id"), 
 	inverseJoinColumns = @JoinColumn(name = "payment_id"))
 	private Set<Payments> payments;
+	
+	@ManyToMany
+	@JoinTable
+	(name = "tb_restaurant_user",
+	joinColumns = @JoinColumn(name = "restaurant_id"),
+	inverseJoinColumns = @JoinColumn(name = "user_id"))
+	private Set<User> users;
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "restaurant")
 	private List<Products> products;
 
 	@Column(name = "active_status")
-	private Boolean activeStatus;
+	private Boolean status;
 	
+	@Column(name = "open")
+	private Boolean open;
+
 	public void active() {
-		setActiveStatus(Boolean.TRUE);
+		setStatus(Boolean.TRUE);
+	}
+
+	public void desactive() {
+		setStatus(Boolean.FALSE);
+	}
+
+	public void addPayment(Payments payments) {
+		this.payments.add(payments);
 	}
 	
-	public void desactive() {
-		setActiveStatus(Boolean.FALSE);
+	public void removePayment(Payments payments) {
+		getPayments().remove(payments);
+	}
+	
+	public void addUser(User user) {
+		getUsers().add(user);
+	}
+	
+	public void removeUser(User user) {
+		getUsers().remove(user);
 	}
 
 }

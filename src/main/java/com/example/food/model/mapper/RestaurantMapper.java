@@ -39,6 +39,8 @@ public class RestaurantMapper {
 		restaurantDTO.setId(restaurant.get().getId());
 		restaurantDTO.setName(restaurant.get().getName());
 		restaurantDTO.setFreigthRate(restaurant.get().getFreigthRate());
+		restaurantDTO.setStatus(restaurant.get().getStatus());
+		restaurantDTO.setOpen(restaurant.get().getOpen());
 		return restaurantDTO;
 	}
 

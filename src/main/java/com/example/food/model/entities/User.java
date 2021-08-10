@@ -52,10 +52,18 @@ public class User {
 	name = "tb_user_group",
 	joinColumns = @JoinColumn(name = "user_id"),
 	inverseJoinColumns = @JoinColumn(name = "group_id"))
-	private Set<Groups> group;
+	private Set<Group> groups;
 	
 	public boolean verifyPasswordCurrent(String passwordCurrent) {
 		return password.equals(passwordCurrent);
+	}
+	
+	public void addGroup(Group group) {
+		getGroups().add(group);
+	}
+	
+	public void removeGroup(Group group) {
+		getGroups().remove(group);
 	}
 	
 }
