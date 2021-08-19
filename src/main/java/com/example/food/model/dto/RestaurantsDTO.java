@@ -7,11 +7,12 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class PaymentDTO {
+public class RestaurantsDTO {
 
 	@JsonProperty("id")
 	private Long id;
 
 	@JsonProperty("name")
-	private String description;
+	private String name;
+
 }

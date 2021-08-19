@@ -7,11 +7,9 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class PaymentDTO {
+public class PaymentsDTO {
 
 	@JsonProperty("id")
 	private Long id;
 
-	@JsonProperty("name")
-	private String description;
 }

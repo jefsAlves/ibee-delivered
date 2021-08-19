@@ -16,7 +16,7 @@ import com.example.food.model.entities.User;
 import com.example.food.model.exceptions.BusinessException;
 import com.example.food.model.exceptions.CannotDeleteException;
 import com.example.food.model.exceptions.IdNotFoudException;
-import com.example.food.model.mapper.UsersMapper;
+import com.example.food.model.mapper.UserMapper;
 import com.example.food.model.repository.UsersRepository;
 import com.example.food.model.services.UserService;
 import com.example.food.model.util.MessageUtil;
@@ -29,7 +29,7 @@ public class UserServiceImpl implements UserService {
 	private UsersRepository userRepository;
 
 	@Autowired
-	private UsersMapper mapper;
+	private UserMapper mapper;
 
 	@Autowired
 	private UsersUtil userUtil;

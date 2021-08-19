@@ -49,7 +49,8 @@ public class RestaurantController {
 	}
 
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<RestaurantDTO> updateRestaurant(@PathVariable Long id, @Valid @RequestBody RestaurantDTO restaurantDTO) {
+	public ResponseEntity<RestaurantDTO> updateRestaurant(@PathVariable Long id,
+			@Valid @RequestBody RestaurantDTO restaurantDTO) {
 		return new ResponseEntity<>(restaurantService.updateRestaurant(id, restaurantDTO), HttpStatus.OK);
 	}
 
@@ -64,10 +65,34 @@ public class RestaurantController {
 		restaurantService.desactiveRestaurant(desactiveId);
 		return ResponseEntity.noContent().build();
 	}
+	
+	@PutMapping(value = "/active")
+	public ResponseEntity<Void> activeRestaurantAll(@RequestBody List<Long> restaurantIds) {
+		restaurantService.activeAll(restaurantIds);
+		return ResponseEntity.noContent().build();
+	}
+	
+	@DeleteMapping(value = "/desactive")
+	public ResponseEntity<Void> desactiveRestaurantAll(@RequestBody List<Long> restaurantIds) {
+		restaurantService.desactiveRestaurantAll(restaurantIds);
+		return ResponseEntity.noContent().build();
+	}
 
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<RestaurantDTO> deleteRestaurant(@PathVariable Long id) {
 		restaurantService.deleteRestaurant(id);
+		return ResponseEntity.noContent().build();
+	}
+	
+	@PutMapping(value = "/{restaurantId}/open")
+	public ResponseEntity<Void> openRestaurant(@PathVariable Long restaurantId) {
+		restaurantService.openRestaurant(restaurantId);
+		return ResponseEntity.noContent().build();
+	}
+
+	@PutMapping(value = "/{restaurantId}/close")
+	public ResponseEntity<Void> closeRestaurant(@PathVariable Long restaurantId) {
+		restaurantService.closeRestaurant(restaurantId);
 		return ResponseEntity.noContent().build();
 	}
 

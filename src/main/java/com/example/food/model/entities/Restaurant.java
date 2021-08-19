@@ -73,7 +73,7 @@ public class Restaurant {
 	(name = "tb_restaurant_payment", 
 	joinColumns = @JoinColumn(name = "restaurant_id"), 
 	inverseJoinColumns = @JoinColumn(name = "payment_id"))
-	private Set<Payments> payments;
+	private Set<Payment> payments;
 	
 	@ManyToMany
 	@JoinTable
@@ -99,12 +99,20 @@ public class Restaurant {
 	public void desactive() {
 		setStatus(Boolean.FALSE);
 	}
+	
+	public void open(Long restaurantId) {
+		setOpen(Boolean.TRUE);
+	}
+	
+	public void close(Long restaurantId) {
+		setOpen(Boolean.FALSE);
+	}
 
-	public void addPayment(Payments payments) {
+	public void addPayment(Payment payments) {
 		this.payments.add(payments);
 	}
 	
-	public void removePayment(Payments payments) {
+	public void removePayment(Payment payments) {
 		getPayments().remove(payments);
 	}
 	

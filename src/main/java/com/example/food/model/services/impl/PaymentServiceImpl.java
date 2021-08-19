@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.food.model.dto.PaymentDTO;
-import com.example.food.model.entities.Payments;
+import com.example.food.model.entities.Payment;
 import com.example.food.model.exceptions.IdNotFoudException;
 import com.example.food.model.mapper.PaymentMapper;
 import com.example.food.model.repository.PaymentRepository;
@@ -24,13 +24,13 @@ public class PaymentServiceImpl implements PaymentService {
 	private PaymentMapper mapper;
 
 	@Override
-	public Payments search(Long paymentId) {
+	public Payment search(Long paymentId) {
 		var payment = paymentRepository.findById(paymentId);
 		return payment.orElseThrow(() -> new IdNotFoudException(MessageUtil.ID_NOT_FOUND));
 	}
 
 	public PaymentDTO searchPayment(Long paymentId) {
-		Optional<Payments> payments = paymentRepository.findById(paymentId);
+		Optional<Payment> payments = paymentRepository.findById(paymentId);
 		payments.orElseThrow(() -> new IdNotFoudException(MessageUtil.ID_NOT_FOUND));
 		return mapper.toDTO(payments);
 	}

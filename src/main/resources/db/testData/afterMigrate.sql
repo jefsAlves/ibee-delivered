@@ -91,6 +91,6 @@ INSERT INTO tb_restaurant_user (restaurant_id, user_id) VALUES (1, 1);
 INSERT INTO tb_restaurant_user (restaurant_id, user_id) VALUES (2, 1);
 INSERT INTO tb_restaurant_user (restaurant_id, user_id) VALUES (5, 2);
 
-INSERT INTO tb_order (id, address_cep, address_complement, address_neighborhood, address_number, address_street, amount, create_date, freigth_rate, order_status, sub_total, payment_id, restaurant_id, user_id) VALUES (1, '98439458', '', 'Manhattam', '323', '5th', 3, utc_timestamp, 4, 1, 6, 2, 2, 1);
+INSERT INTO tb_order (id, address_cep, address_complement, address_neighborhood, address_number, address_street, total_value, create_date, freigth_rate, order_status, sub_total, payment_id, restaurant_id, user_id) VALUES (1, '98439458', '', 'Manhattam', '323', '5th', 3, utc_timestamp, 4, 'CREATE', 6, 2, 2, 1);
 
-INSERT INTO tb_order_item (id, observation, quantity, total_price, order_id, product_id) VALUES (1, 'Great', 2, 9.3, 1, 1);
+INSERT INTO tb_order_item (id, observation, quantity, total_price, unitary_price, order_id, product_id) VALUES (1, 'Great', 2, 9.45, 9.3, 1, 1);

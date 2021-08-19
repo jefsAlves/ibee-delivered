@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.food.model.dto.UserDTO;
 import com.example.food.model.entities.User;
-import com.example.food.model.mapper.UsersMapper;
+import com.example.food.model.mapper.UserMapper;
 import com.example.food.model.repository.UsersRepository;
 import com.example.food.model.services.AssociateRestaurantUserService;
 import com.example.food.model.services.RestaurantService;
@@ -28,7 +28,7 @@ public class AssociateRestaurantUserServiceImpl implements AssociateRestaurantUs
 	private UsersRepository userRepository;
 
 	@Autowired
-	private UsersMapper mapper;
+	private UserMapper mapper;
 
 	@Override
 	public List<UserDTO> listUsers(Long restaurantId) {

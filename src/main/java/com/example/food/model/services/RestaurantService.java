@@ -9,7 +9,7 @@ public interface RestaurantService {
 
 	Restaurant search(Long restaurantId);
 
-	RestaurantDTO searchRestaurant(Long id);
+	RestaurantDTO searchRestaurant(Long restaurantId);
 
 	RestaurantDTO searchRestaurantByName(String name);
 
@@ -17,12 +17,20 @@ public interface RestaurantService {
 
 	RestaurantDTO createRestaurant(RestaurantDTO restaurantDTO);
 
-	RestaurantDTO updateRestaurant(Long id, RestaurantDTO restaurant);
+	RestaurantDTO updateRestaurant(Long restaurantId, RestaurantDTO restaurant);
 
-	void deleteRestaurant(Long id);
+	void deleteRestaurant(Long restaurantId);
 
-	void activeRestaurant(Long id);
+	void activeRestaurant(Long restaurantId);
 
-	void desactiveRestaurant(Long id);
+	void desactiveRestaurant(Long restaurantId);
+
+	void activeAll(List<Long> restaurantIds);
+
+	void desactiveRestaurantAll(List<Long> restaurantIds);
+
+	void openRestaurant(Long restaurantId);
+
+	void closeRestaurant(Long restaurantId);
 
 }

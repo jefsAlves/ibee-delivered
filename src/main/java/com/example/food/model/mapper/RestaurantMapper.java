@@ -48,4 +48,12 @@ public class RestaurantMapper {
 		restaurant.setKitchen(new Kitchen());
 		modelMapper.map(restaurantDTO, restaurant);
 	}
+	
+	public static RestaurantDTO toDTOOptional(Restaurant restaurant) {
+		RestaurantDTO restaurantDTO = new RestaurantDTO();
+		restaurantDTO.setId(restaurant.getId());
+		restaurantDTO.setName(restaurant.getName());
+		return restaurantDTO;
+	}
+
 }

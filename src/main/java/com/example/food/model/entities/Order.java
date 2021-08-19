@@ -4,11 +4,13 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -39,8 +41,8 @@ public class Order {
 	@Column(name = "freigth_rate", nullable = false)
 	private BigDecimal freigthRate;
 
-	@Column(name = "amount", nullable = false)
-	private BigDecimal amount;
+	@Column(name = "total_value", nullable = false)
+	private BigDecimal totalValue;
 
 	@Column(name = "create_date", nullable = false)
 	private LocalDateTime createDate;
@@ -60,9 +62,9 @@ public class Order {
 	@Enumerated(EnumType.STRING)
 	private OrderStatus orderStatus;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "payment_id", nullable = false)
-	private Payments payments;
+	private Payment payments;
 
 	@ManyToOne
 	@JoinColumn(name = "restaurant_id", nullable = false)
@@ -72,7 +74,21 @@ public class Order {
 	@JoinColumn(name = "user_id", nullable = false)
 	private User users;
 
-	@OneToMany(mappedBy = "order")
+	@OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
 	private List<OrderItem> orderItem;
+	
+	public void addFreigthRate() {
+		setFreigthRate(restaurant.getFreigthRate());
+	}
 
+	public void calculateTotal() {
+		getOrderItem().forEach(OrderItem::calculateTotalPrice);
+
+		subTotal = getOrderItem().stream()
+						.map(orderItem -> orderItem.getTotalPrice())
+						.reduce(BigDecimal.ZERO, BigDecimal::add);
+		
+		totalValue = subTotal.add(freigthRate);
+	}
+	
 }

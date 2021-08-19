@@ -3,11 +3,11 @@ package com.example.food.model.services;
 import java.util.List;
 
 import com.example.food.model.dto.PaymentDTO;
-import com.example.food.model.entities.Payments;
+import com.example.food.model.entities.Payment;
 
 public interface PaymentService {
 
-	Payments search(Long paymentId);
+	Payment search(Long paymentId);
 
 	PaymentDTO searchPayment(Long paymentId);
 

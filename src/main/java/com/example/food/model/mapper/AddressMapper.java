@@ -20,5 +20,15 @@ public class AddressMapper {
 	public Address toEntity(AddressDTO addressDTO) {
 		return modelMapper.map(addressDTO, Address.class);
 	}
-
+	
+	public static AddressDTO toDTOOptional(Address address) {
+		AddressDTO addressDTO = new AddressDTO();
+		addressDTO.setAddressCep(address.getAddressCep());
+		addressDTO.setAddressComplement(address.getAddressComplement());
+		addressDTO.setAddressNeighborhood(address.getAddressNeighborhood());
+		addressDTO.setAddressNumber(address.getAddressNumber());
+		addressDTO.setAddressStreet(address.getAddressStreet());
+		return addressDTO;
+	}
+	
 }

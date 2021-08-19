@@ -40,7 +40,7 @@ public class RestaurantServiceImpl implements RestaurantService {
 		Optional<Restaurant> restaurant = restaurantRepository.findById(restaurantId);
 		return restaurant.orElseThrow(() -> new IdNotFoudException(MessageUtil.ID_NOT_FOUND));
 	}
-	
+
 	@Override
 	public RestaurantDTO searchRestaurant(Long id) {
 		Optional<Restaurant> restaurant = restaurantRepository.findById(id);
@@ -88,22 +88,50 @@ public class RestaurantServiceImpl implements RestaurantService {
 	public void deleteRestaurant(Long restaurantId) {
 		try {
 			restaurantRepository.deleteById(restaurantId);
-		} 
+		}
 		catch (EmptyResultDataAccessException e) {
 			throw new IdNotFoudException(MessageUtil.ID_NOT_FOUND);
 		}
 	}
 
+	@Override
 	@Transactional
 	public void activeRestaurant(Long activeId) {
 		var restaurant = search(activeId);
 		restaurant.active();
 	}
 
+	@Override
 	@Transactional
 	public void desactiveRestaurant(Long desactiveId) {
 		var restaurant = search(desactiveId);
 		restaurant.desactive();
+	}
+
+	@Transactional
+	@Override
+	public void activeAll(List<Long> restaurantIds) {
+		restaurantIds.forEach(this::activeRestaurant);
+	}
+	
+	@Transactional
+	@Override
+	public void desactiveRestaurantAll(List<Long> restaurantIds) {
+		restaurantIds.forEach(this::desactiveRestaurant);
+	}
+
+	@Transactional
+	@Override
+	public void openRestaurant(Long restaurantId) {
+		var restaurant = search(restaurantId);
+		restaurant.open(restaurantId);
+	}
+
+	@Transactional
+	@Override
+	public void closeRestaurant(Long restaurantId) {
+		var restaurant = search(restaurantId);
+		restaurant.close(restaurantId);
 	}
 
 }

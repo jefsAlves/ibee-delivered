@@ -9,7 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.example.food.model.dto.PaymentDTO;
-import com.example.food.model.entities.Payments;
+import com.example.food.model.dto.PaymentsDTO;
+import com.example.food.model.entities.Payment;
 
 @Component
 public class PaymentMapper {
@@ -17,23 +18,35 @@ public class PaymentMapper {
 	@Autowired
 	private ModelMapper modelMapper;
 
-	public PaymentDTO toDTO(Payments payments) {
+	public PaymentDTO toDTO(Payment payments) {
 		return modelMapper.map(payments, PaymentDTO.class);
 	}
-
-	public Payments toEntity(PaymentDTO paymentsDTO) {
-		return modelMapper.map(paymentsDTO, Payments.class);
+	
+	public PaymentsDTO toDTOEntity(Payment payment) {
+		return modelMapper.map(payment, PaymentsDTO.class);
 	}
 
-	public List<PaymentDTO> toDTOList(List<Payments> payments) {
-		return modelMapper.map(payments, new TypeToken<List<Payments>> () {}.getType());
+	public Payment toEntity(PaymentDTO paymentsDTO) {
+		return modelMapper.map(paymentsDTO, Payment.class);
+	}
+
+	public List<PaymentDTO> toDTOList(List<Payment> payments) {
+		return modelMapper.map(payments, new TypeToken<List<Payment>> () {}.getType());
 	}
 	
-	public List<Payments> toEntityList(List<PaymentDTO> paymentsDTO) {
-		return modelMapper.map(paymentsDTO, new TypeToken<List<Payments>>() {}.getType());
+	public List<Payment> toEntityList(List<PaymentDTO> paymentsDTO) {
+		return modelMapper.map(paymentsDTO, new TypeToken<List<Payment>>() {}.getType());
 	}
 	
-	public PaymentDTO toDTO(Optional<Payments> payments) {
+	public PaymentDTO toDTO(Optional<Payment> payments) {
 		return modelMapper.map(payments, PaymentDTO.class);
 	}
+	
+	public static PaymentDTO toDTOOptional(Payment payment) {
+		PaymentDTO paymentDTO = new PaymentDTO();
+		paymentDTO.setId(payment.getId());
+		paymentDTO.setDescription(payment.getDescription());
+		return paymentDTO;
+	}
+	
 }

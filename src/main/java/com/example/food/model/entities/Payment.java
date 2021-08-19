@@ -14,7 +14,7 @@ import lombok.EqualsAndHashCode;
 @Table(name = "tb_payments")
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class Payments {
+public class Payment {
 
 	@EqualsAndHashCode.Include
 	@Id

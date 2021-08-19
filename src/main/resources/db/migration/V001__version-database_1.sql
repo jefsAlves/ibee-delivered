@@ -6,9 +6,9 @@ create table tb_group_permission (group_id bigint not null, permission_id bigint
 
 create table tb_kitchen (id bigint not null auto_increment, name varchar(50) not null, primary key (id)) engine=InnoDB;
 
-create table tb_order (id bigint not null auto_increment, address_cep varchar(50), address_complement varchar(50), address_neighborhood varchar(50), address_number varchar(50), address_street varchar(50), amount decimal(19,2) not null, cancelled_date datetime(6), confirmation_date datetime(6), create_date datetime(6) not null, delivered_date datetime(6), freigth_rate decimal(19,2) not null, order_status varchar(50), sub_total decimal(19,2) not null, payment_id bigint not null, restaurant_id bigint not null, user_id bigint not null, primary key (id)) engine=InnoDB;
+create table tb_order (id bigint not null auto_increment, address_cep varchar(50), address_complement varchar(50), address_neighborhood varchar(50), address_number varchar(50), address_street varchar(50), total_value decimal(19,2) not null, cancelled_date datetime(6), confirmation_date datetime(6), create_date datetime(6) not null, delivered_date datetime(6), freigth_rate decimal(19,2) not null, order_status varchar(50), sub_total decimal(19,2) not null, payment_id bigint not null, restaurant_id bigint not null, user_id bigint not null, primary key (id)) engine=InnoDB;
 
-create table tb_order_item (id bigint not null auto_increment, observation varchar(50), quantity integer not null, total_price decimal(19,2) not null, order_id bigint, product_id bigint, primary key (id)) engine=InnoDB;
+create table tb_order_item (id bigint not null auto_increment, observation varchar(50), quantity integer not null, total_price decimal(19,2) not null, unitary_price decimal(19,2) not null, order_id bigint, product_id bigint, primary key (id)) engine=InnoDB;
 
 create table tb_payments (id bigint not null auto_increment, description varchar(50) not null, primary key (id)) engine=InnoDB;
 
