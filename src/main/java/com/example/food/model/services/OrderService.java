@@ -3,8 +3,11 @@ package com.example.food.model.services;
 import java.util.List;
 
 import com.example.food.model.dto.OrderDTO;
+import com.example.food.model.dto.OrdersDTO;
 
 public interface OrderService {
 
-	List<OrderDTO> listOrders();
+	OrderDTO searchOrder(Long orderId);
+
+	List<OrdersDTO> listOrders();
 }
