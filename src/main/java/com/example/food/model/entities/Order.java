@@ -77,18 +77,21 @@ public class Order {
 	@OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
 	private List<OrderItem> orderItem;
 	
-	public void addFreigthRate() {
-		setFreigthRate(restaurant.getFreigthRate());
+	public void calculateTotal() {
+		subTotal = getOrderItem()
+					.stream()
+						.map(it -> it.getTotalPrice())
+							.reduce(BigDecimal.ZERO, BigDecimal::add);
+
+		totalValue = subTotal.add(this.freigthRate);
+	}
+	
+	public void definedFreighRate() {
+		setFreigthRate(getRestaurant().getFreigthRate());
 	}
 
-	public void calculateTotal() {
-		getOrderItem().forEach(OrderItem::calculateTotalPrice);
-
-		subTotal = getOrderItem().stream()
-						.map(orderItem -> orderItem.getTotalPrice())
-						.reduce(BigDecimal.ZERO, BigDecimal::add);
-		
-		totalValue = subTotal.add(freigthRate);
+	public void addOrderItemToOrder() {
+		getOrderItem().forEach(it -> it.setOrder(this));
 	}
 	
 }

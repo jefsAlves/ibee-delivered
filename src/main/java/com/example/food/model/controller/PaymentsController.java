@@ -14,7 +14,7 @@ import com.example.food.model.services.PaymentService;
 
 @RestController
 @RequestMapping(value = "/payment-form")
-public class PaymentFormController {
+public class PaymentsController {
 
 	@Autowired
 	private PaymentService paymentForm;

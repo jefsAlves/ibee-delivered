@@ -50,16 +50,8 @@ public class OrderItem {
 	private Products products;
 
 	public void calculateTotalPrice() {
-//		unitaryPrice = unitaryPrice == null ? BigDecimal.ZERO : unitaryPrice;
-//		quantity = quantity == null ? 0 : quantity;
-		
-		if(unitaryPrice == null) {
-			unitaryPrice = BigDecimal.ZERO;
-		}
-		
-		if(quantity == null) {
-			quantity = 0;
-		}
+		unitaryPrice = unitaryPrice == null ? BigDecimal.ZERO : unitaryPrice;
+		quantity = quantity == null ? 0 : quantity;
 		
 		setTotalPrice(unitaryPrice.multiply(new BigDecimal(quantity)));
 	}

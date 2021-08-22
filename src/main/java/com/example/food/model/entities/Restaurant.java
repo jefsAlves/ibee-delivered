@@ -74,11 +74,11 @@ public class Restaurant {
 	joinColumns = @JoinColumn(name = "restaurant_id"), 
 	inverseJoinColumns = @JoinColumn(name = "payment_id"))
 	private Set<Payment> payments;
-	
+
 	@ManyToMany
 	@JoinTable
-	(name = "tb_restaurant_user",
-	joinColumns = @JoinColumn(name = "restaurant_id"),
+	(name = "tb_restaurant_user", 
+	joinColumns = @JoinColumn(name = "restaurant_id"), 
 	inverseJoinColumns = @JoinColumn(name = "user_id"))
 	private Set<User> users;
 
@@ -88,7 +88,7 @@ public class Restaurant {
 
 	@Column(name = "active_status")
 	private Boolean status;
-	
+
 	@Column(name = "open")
 	private Boolean open;
 
@@ -99,11 +99,11 @@ public class Restaurant {
 	public void desactive() {
 		setStatus(Boolean.FALSE);
 	}
-	
+
 	public void open(Long restaurantId) {
 		setOpen(Boolean.TRUE);
 	}
-	
+
 	public void close(Long restaurantId) {
 		setOpen(Boolean.FALSE);
 	}
@@ -111,17 +111,25 @@ public class Restaurant {
 	public void addPayment(Payment payments) {
 		this.payments.add(payments);
 	}
-	
+
 	public void removePayment(Payment payments) {
 		getPayments().remove(payments);
 	}
-	
+
 	public void addUser(User user) {
 		getUsers().add(user);
 	}
-	
+
 	public void removeUser(User user) {
 		getUsers().remove(user);
+	}
+
+	public boolean acceptancePaymentForm(Payment payment) {
+		return getPayments().contains(payment);
+	}
+
+	public boolean notAcceptancePaymentForm(Payment payment) {
+		return !acceptancePaymentForm(payment);
 	}
 
 }

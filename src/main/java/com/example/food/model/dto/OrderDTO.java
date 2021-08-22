@@ -1,61 +1,40 @@
 package com.example.food.model.dto;
 
 import java.math.BigDecimal;
-import java.time.OffsetDateTime;
+import java.time.LocalDateTime;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Data;
 
-import lombok.Getter;
-import lombok.Setter;
-
-@Getter
-@Setter
-@JsonInclude(Include.NON_NULL)
+@Data
 public class OrderDTO {
 
-	@JsonProperty("id")
 	private Long id;
 
-	@JsonProperty("subTotal")
-	private BigDecimal subTotal;
+	private BigDecimal value;
 
-	@JsonProperty("freigthRate")
 	private BigDecimal freigthRate;
 
-	@JsonProperty("totalValue")
 	private BigDecimal totalValue;
+	
+	private String status; 
 
-	@JsonProperty("status")
-	private String status;
+	private LocalDateTime createDate;
 
-	@JsonProperty("createDate")
-	private OffsetDateTime createDate;
+	private LocalDateTime confirmationDate;
 
-	@JsonProperty("confirmationDate")
-	private OffsetDateTime confirmationDate;
+	private LocalDateTime cancelledDate;
 
-	@JsonProperty("delivetedDate")
-	private OffsetDateTime develiredDate;
-
-	@JsonProperty("canceledDate")
-	private OffsetDateTime canceledDate;
-
-	@JsonProperty("restaurant")
-	private RestaurantDTO restaurant;
-
-	@JsonProperty("user")
-	private UserDTO users;
-
-	@JsonProperty("payment")
-	private PaymentDTO payments;
-
-	@JsonProperty("address")
+	private LocalDateTime deliveredDate;
+	
+	private RestaurantsDTO restaurant;
+	
+	private UsersDTO users;
+	
+	private PaymentsDTO payments;
+	
 	private AddressDTO address;
-
-	@JsonProperty("orderItem")
+	
 	private List<OrderItemDTO> orderItem;
 
 }
