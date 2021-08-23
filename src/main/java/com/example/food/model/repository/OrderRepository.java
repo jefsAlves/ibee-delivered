@@ -10,9 +10,9 @@ import com.example.food.model.entities.Order;
 
 public interface OrderRepository extends JpaRepository<Order, Long> {
 
-	@Query("FROM Order o join fetch o.restaurant r join fetch r.kitchen k join fetch o.users")
+	@Query("FROM Order o join fetch o.users u join fetch o.restaurant r join fetch r.kitchen")
 	List<Order> findAll();
 
-	@Query("FROM Order o WHERE o.id = :id")
+	@Query("FROM Order o join fetch o.restaurant r join fetch r.kitchen join fetch o.users u join fetch o.orderItem WHERE o.id = :id")
 	Order search(@Param("id") Long id);
 }
