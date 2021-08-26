@@ -14,12 +14,12 @@ import com.example.food.model.entities.Products;
 import com.example.food.model.exceptions.IdNotFoudException;
 import com.example.food.model.mapper.ProductsMapper;
 import com.example.food.model.repository.ProductRepository;
-import com.example.food.model.services.ProductsService;
+import com.example.food.model.services.ProductService;
 import com.example.food.model.services.RestaurantService;
 import com.example.food.model.util.MessageUtil;
 
 @Service
-public class ProductsServiceImpl implements ProductsService {
+public class ProductsServiceImpl implements ProductService {
 
 	@Autowired
 	private RestaurantService restaurantService;

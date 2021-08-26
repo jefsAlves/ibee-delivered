@@ -19,6 +19,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import com.example.food.model.entities.enums.OrderStatus;
 
 import lombok.Data;
@@ -44,6 +46,7 @@ public class Order {
 	@Column(name = "total_value", nullable = false)
 	private BigDecimal totalValue;
 
+	@CreationTimestamp
 	@Column(name = "create_date", nullable = false)
 	private LocalDateTime createDate;
 
@@ -78,6 +81,8 @@ public class Order {
 	private List<OrderItem> orderItem;
 	
 	public void calculateTotal() {
+		getOrderItem().forEach(OrderItem::calculateTotalPrice);
+		
 		subTotal = getOrderItem()
 					.stream()
 						.map(it -> it.getTotalPrice())

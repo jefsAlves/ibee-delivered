@@ -14,14 +14,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.food.model.dto.ProductDTO;
-import com.example.food.model.services.ProductsService;
+import com.example.food.model.services.ProductService;
 
 @RestController
 @RequestMapping(value = "restaurant/{restaurantId}")
 public class ProductsController {
 
 	@Autowired
-	private ProductsService productsService;
+	private ProductService productsService;
 
 	@GetMapping(value = "/product/{productId}")
 	public ResponseEntity<ProductDTO> searchProduct(@PathVariable Long restaurantId, @PathVariable Long productId) {

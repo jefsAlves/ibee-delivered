@@ -10,7 +10,7 @@ import lombok.Data;
 public class OrderDTO {
 
 	private Long id;
-	private BigDecimal value;
+	private BigDecimal subTotal;
 	private BigDecimal freigthRate;
 	private BigDecimal totalValue;
 	private String status;

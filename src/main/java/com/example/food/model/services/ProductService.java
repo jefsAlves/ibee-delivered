@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.example.food.model.dto.ProductDTO;
 
-public interface ProductsService {
+public interface ProductService {
 
 	ProductDTO searchProduct(Long restaurantId, Long productId);
 

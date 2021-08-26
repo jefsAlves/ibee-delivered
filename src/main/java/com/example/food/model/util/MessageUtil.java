@@ -11,5 +11,6 @@ public class MessageUtil {
 	public static final String CANNOT_DELETE = "Cannot delete this group!";
 	public static final String INVALID_PASSWORD = "Invalid Password";
 	public static final String EMAIL_ALREADY_EXIST = "This email already exist";
+	public static final String RESTAURANT_NOT_ACCEPTANCE_PAYMENT = "This restaurant not acceptance payment form";
 
 }
