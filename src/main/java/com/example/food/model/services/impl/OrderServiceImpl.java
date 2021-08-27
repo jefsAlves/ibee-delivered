@@ -11,6 +11,7 @@ import com.example.food.model.dto.OrderDTO;
 import com.example.food.model.dto.OrderInputDTO;
 import com.example.food.model.dto.OrdersDTO;
 import com.example.food.model.entities.Order;
+import com.example.food.model.entities.enums.OrderStatus;
 import com.example.food.model.exceptions.BusinessException;
 import com.example.food.model.exceptions.IdNotFoudException;
 import com.example.food.model.mapper.OrderInputMapper;
@@ -62,13 +63,24 @@ public class OrderServiceImpl implements OrderService {
 //	@Autowired
 //	private ModelMapper modelMapper;
 
+//	@Override
+//	public OrderDTO searchOrder(Long orderId) {
+//		var order = orderRepository.search(orderId);
+//		if (order == null) {
+//			throw new IdNotFoudException(MessageUtil.ID_NOT_FOUND);
+//		}
+//		return mapper.toDTO(order);
+//	}
+
 	@Override
 	public OrderDTO searchOrder(Long orderId) {
-		var order = orderRepository.search(orderId);
-		if (order == null) {
-			throw new IdNotFoudException(MessageUtil.ID_NOT_FOUND);
-		}
+		var order = searchByOrder(orderId);
 		return mapper.toDTO(order);
+	}
+
+	public Order searchByOrder(Long orderId) {
+		var order = orderRepository.findById(orderId);
+		return order.orElseThrow(() -> new IdNotFoudException());
 	}
 
 //	@Override
@@ -104,6 +116,7 @@ public class OrderServiceImpl implements OrderService {
 		orders.setRestaurant(restaurant);
 		orders.setPayments(payment);
 		orders.setUsers(user);
+		orders.setOrderStatus(OrderStatus.CREATE);
 
 		if (restaurant.notAcceptancePaymentForm(payment)) {
 			throw new BusinessException(MessageUtil.RESTAURANT_NOT_ACCEPTANCE_PAYMENT);

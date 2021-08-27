@@ -19,6 +19,10 @@ public class OrderMapper {
 	public OrderDTO toDTO(Order order) {
 		return modelMapper.map(order, OrderDTO.class);
 	}
+	
+	public Order toEntity(OrderDTO orderDTO) {
+		return modelMapper.map(orderDTO, Order.class);
+	}
 
 	public List<OrderDTO> toDTOList(List<Order> orders) {
 		return orders.stream().map(order -> toDTO(order)).collect(Collectors.toList());
