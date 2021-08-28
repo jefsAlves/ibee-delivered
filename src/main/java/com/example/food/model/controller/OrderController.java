@@ -24,19 +24,19 @@ public class OrderController {
 	@Autowired
 	private OrderService orderService;
 
-	@GetMapping("/{orderId}")
-	public ResponseEntity<OrderDTO> searchOrder(@PathVariable Long orderId) {
-		return new ResponseEntity<>(orderService.searchOrder(orderId), HttpStatus.OK);
+	@GetMapping("/{orderCode}")
+	public ResponseEntity<OrderDTO> searchOrder(@PathVariable String orderCode) {
+		return new ResponseEntity<>(orderService.searchOrder(orderCode), HttpStatus.OK);
 	}
 
 	@GetMapping
 	public ResponseEntity<List<OrdersDTO>> listOrders() {
 		return new ResponseEntity<>(orderService.listOrders(), HttpStatus.OK);
 	}
-	
+
 	@PostMapping
 	public ResponseEntity<OrderDTO> createOrder(@RequestBody OrderInputDTO order) {
-		return new ResponseEntity<>(orderService.createOrder(order), HttpStatus.CREATED);	
+		return new ResponseEntity<>(orderService.createOrder(order), HttpStatus.CREATED);
 	}
 
 }

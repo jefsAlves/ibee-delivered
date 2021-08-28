@@ -13,7 +13,7 @@ import lombok.Data;
 @JsonInclude(Include.NON_NULL)
 public class OrderDTO {
 
-	private Long id;
+	private String orderCode;
 	private BigDecimal subTotal;
 	private BigDecimal freigthRate;
 	private BigDecimal totalValue;
@@ -28,5 +28,5 @@ public class OrderDTO {
 	private AddressDTO address;
 
 	private List<OrderItemDTO> orderItem;
-	
+
 }

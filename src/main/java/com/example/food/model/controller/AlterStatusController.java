@@ -11,27 +11,27 @@ import com.example.food.model.dto.OrderDTO;
 import com.example.food.model.services.AlterStatusService;
 
 @RestController
-@RequestMapping("/order/{orderId}")
+@RequestMapping("/order/{orderCode}")
 public class AlterStatusController {
 
 	@Autowired
 	private AlterStatusService alterStatus;
 
 	@PutMapping("/confirmation")
-	public ResponseEntity<Void> alterStatusConfirmation(@PathVariable Long orderId) {
-		alterStatus.alterStatusConfirmation(orderId);
+	public ResponseEntity<Void> alterStatusConfirmation(@PathVariable String orderCode) {
+		alterStatus.alterStatusConfirmation(orderCode);
 		return ResponseEntity.noContent().build();
 	}
 
 	@PutMapping("/delivered")
-	public ResponseEntity<Void> alterStatusDelivered(@PathVariable Long orderId) {
-		alterStatus.alterStatusDelivered(orderId);
+	public ResponseEntity<Void> alterStatusDelivered(@PathVariable String orderCode) {
+		alterStatus.alterStatusDelivered(orderCode);
 		return ResponseEntity.noContent().build();
 	}
 
 	@PutMapping("/cancelled")
-	public ResponseEntity<OrderDTO> alterStatusCancelled(@PathVariable Long orderId) {
-		alterStatus.alterStatusCancelled(orderId);
+	public ResponseEntity<OrderDTO> alterStatusCancelled(@PathVariable String orderCode) {
+		alterStatus.alterStatusCancelled(orderCode);
 		return ResponseEntity.noContent().build();
 	}
 }

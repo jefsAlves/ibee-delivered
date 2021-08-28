@@ -11,7 +11,6 @@ import com.example.food.model.dto.OrderDTO;
 import com.example.food.model.dto.OrderInputDTO;
 import com.example.food.model.dto.OrdersDTO;
 import com.example.food.model.entities.Order;
-import com.example.food.model.entities.enums.OrderStatus;
 import com.example.food.model.exceptions.BusinessException;
 import com.example.food.model.exceptions.IdNotFoudException;
 import com.example.food.model.mapper.OrderInputMapper;
@@ -19,7 +18,6 @@ import com.example.food.model.mapper.OrderMapper;
 import com.example.food.model.mapper.OrdersMapper;
 import com.example.food.model.mapper.ProductsMapper;
 import com.example.food.model.repository.OrderRepository;
-import com.example.food.model.services.CityService;
 import com.example.food.model.services.OrderService;
 import com.example.food.model.services.PaymentService;
 import com.example.food.model.services.ProductService;
@@ -45,8 +43,8 @@ public class OrderServiceImpl implements OrderService {
 	@Autowired
 	private ProductsMapper productMapper;
 
-	@Autowired
-	private CityService cityService;
+//	@Autowired
+//	private CityService cityService;
 
 	@Autowired
 	private RestaurantService restaurantService;
@@ -73,13 +71,14 @@ public class OrderServiceImpl implements OrderService {
 //	}
 
 	@Override
-	public OrderDTO searchOrder(Long orderId) {
-		var order = searchByOrder(orderId);
+	public OrderDTO searchOrder(String orderCode) {
+		var order = searchByOrder(orderCode);
 		return mapper.toDTO(order);
 	}
 
-	public Order searchByOrder(Long orderId) {
-		var order = orderRepository.findById(orderId);
+	@Override
+	public Order searchByOrder(String orderCode) {
+		var order = orderRepository.findByOrderCode(orderCode);
 		return order.orElseThrow(() -> new IdNotFoudException());
 	}
 
@@ -116,7 +115,7 @@ public class OrderServiceImpl implements OrderService {
 		orders.setRestaurant(restaurant);
 		orders.setPayments(payment);
 		orders.setUsers(user);
-		orders.setOrderStatus(OrderStatus.CREATE);
+		orders.initialStatus();
 
 		if (restaurant.notAcceptancePaymentForm(payment)) {
 			throw new BusinessException(MessageUtil.RESTAURANT_NOT_ACCEPTANCE_PAYMENT);

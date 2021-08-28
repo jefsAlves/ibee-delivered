@@ -9,9 +9,9 @@ import com.example.food.model.entities.Order;
 
 public interface OrderService {
 
-	OrderDTO searchOrder(Long orderId);
+	OrderDTO searchOrder(String orderCode);
 
-	Order searchByOrder(Long orderId);
+	Order searchByOrder(String orderCode);
 
 	List<OrdersDTO> listOrders();
 
