@@ -60,6 +60,18 @@ services:
     networks:
       - ibee-network
 
+  ibee:
+    image: ibee-application:1.0
+    container_name: ibee-application
+    networks:
+      - ibee-network
+    environment:
+      DB_HOST: mysql
+    ports:
+      - "8080:8080"
+
+
+
  
 
     
