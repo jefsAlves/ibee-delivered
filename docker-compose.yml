@@ -56,19 +56,19 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: admin
     ports:
-      - 3306:3306
+      - "3306:3306"
     networks:
       - ibee-network
 
   ibee:
-    image: ibee-application:1.0
-    container_name: ibee-application
+    image: jefsalves/ibee-application:1.0
+    command: ["/app/wait-for-it.sh", "mysql:3306", "-t", "30", "--", "java", "-jar", "app.jar"]
     networks:
       - ibee-network
     environment:
       DB_HOST: mysql
-    ports:
-      - "8080:8080"
+    depends_on:
+      - mysql
 
 
 
