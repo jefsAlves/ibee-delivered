@@ -1,5 +1,9 @@
 set foreign_key_checks = 0;
 
+lock tables tb_city write, tb_group write, tb_group_permission write, tb_kitchen write, tb_payments write,
+tb_permissions write, tb_products write, tb_restaurant write, tb_restaurant_payment write, tb_state write, tb_user_group write,
+tb_users write, tb_restaurant_user write, tb_order write, tb_order_item write;
+
 DELETE FROM tb_city;
 DELETE FROM tb_group;
 DELETE FROM tb_group_permission;
@@ -96,3 +100,5 @@ INSERT INTO tb_order (id, order_code, address_cep, address_complement, address_n
 
 INSERT INTO tb_order_item (id, observation, quantity, total_price, unitary_price, order_id, product_id) VALUES (1, 'Great', 2, 9.45, 9.3, 1, 1);
 INSERT INTO tb_order_item (id, observation, quantity, total_price, unitary_price, order_id, product_id) VALUES (2, 'Excelent', 4, 7.23, 4.5, 2, 1);
+
+unlock tables;

@@ -15,6 +15,8 @@ public class HostCheckController {
 
     @GetMapping
     public ResponseEntity<String> getHostCheck() throws UnknownHostException {
-        return new ResponseEntity<>(InetAddress.getLocalHost().getHostAddress(), HttpStatus.OK);
+        return new ResponseEntity<>(InetAddress.getLocalHost().getHostAddress()
+                + "---" + InetAddress.getLocalHost().getHostName(), HttpStatus.OK);
     }
+
 }

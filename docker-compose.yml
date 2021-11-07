@@ -70,6 +70,16 @@ services:
     depends_on:
       - mysql
 
+  nginx:
+    build: ./nginx
+    image: ibee-proxy
+    ports:
+      - "80:80"
+    networks:
+      - ibee-network
+    depends_on:
+      - ibee
+
 
 
  
