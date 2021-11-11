@@ -30,6 +30,12 @@ spring:
     resources:
       add-mappings: false
 #      spring.jpa.properties.javax.persistence.schema-generation.scripts.action
+
+  security:
+    basic:
+    user:
+      name: ibee-api
+      password: 123456789
       
   kafka:
     producer:
