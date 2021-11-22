@@ -22,7 +22,7 @@ public class ResourceServerConfig extends WebSecurityConfigurerAdapter {
                     .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                     .oauth2ResourceServer()
-                    .opaqueToken();
+                .jwt();
     }
 
 }

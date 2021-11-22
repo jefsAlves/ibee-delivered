@@ -60,6 +60,12 @@ services:
     networks:
       - ibee-network
 
+  redis:
+    image: redis:6.2.6-alpine
+    container_name: redis
+    networks:
+      - ibee-network
+
   ibee:
     image: jefsalves/ibee-application:1.0
     command: ["/app/wait-for-it.sh", "mysql:3306", "-t", "30", "--", "java", "-jar", "app.jar"]
@@ -79,7 +85,6 @@ services:
       - ibee-network
     depends_on:
       - ibee
-
 
 
  

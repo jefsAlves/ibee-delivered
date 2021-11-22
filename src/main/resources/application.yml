@@ -34,10 +34,13 @@ spring:
   security:
     oauth2:
       resourceserver:
-        opaquetoken:
-          introspection-uri: http://localhost:8020/oauth/check_token
-          client-id: ibee-rs
-          client-secret: OzpAkj54loTob01pos1R
+        jwt:
+          public-key-location: classpath:public-key/ibee-pkey.pem
+
+#        opaquetoken:
+#          introspection-uri: http://localhost:8020/oauth/check_token
+#          client-id: ibee-rs
+#          client-secret: OzpAkj54loTob01pos1R
 
   kafka:
     producer:
