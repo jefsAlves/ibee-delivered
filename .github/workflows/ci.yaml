@@ -28,4 +28,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: jesfalves/ibee-application:1.0
+          tags: jefsalves/ibee-application:1.0
