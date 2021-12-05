@@ -8,12 +8,12 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
-import com.example.food.model.dto.GroupDTO;
+import com.example.food.api.dto.GroupDTO;
 import com.example.food.model.entities.Group;
 import com.example.food.model.exceptions.CannotDeleteException;
 import com.example.food.model.exceptions.IdNotFoudException;
-import com.example.food.model.mapper.GroupMapper;
-import com.example.food.model.repository.GroupRepository;
+import com.example.food.infra.mapper.GroupMapper;
+import com.example.food.infra.repository.GroupRepository;
 import com.example.food.model.services.GroupService;
 import com.example.food.model.util.GroupUtil;
 import com.example.food.model.util.MessageUtil;

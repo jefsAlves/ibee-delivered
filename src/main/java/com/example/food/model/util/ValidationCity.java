@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 import com.example.food.model.entities.City;
 import com.example.food.model.exceptions.CityException;
-import com.example.food.model.repository.CityRepository;
+import com.example.food.infra.repository.CityRepository;
 
 @Component
 public class ValidationCity {

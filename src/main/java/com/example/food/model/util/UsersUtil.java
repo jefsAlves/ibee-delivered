@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import com.example.food.model.entities.User;
 import com.example.food.model.exceptions.IdNotFoudException;
 import com.example.food.model.exceptions.RestaurantException;
-import com.example.food.model.repository.UsersRepository;
+import com.example.food.infra.repository.UsersRepository;
 
 @Component
 public class UsersUtil {

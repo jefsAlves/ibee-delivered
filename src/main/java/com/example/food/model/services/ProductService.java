@@ -2,7 +2,7 @@ package com.example.food.model.services;
 
 import java.util.List;
 
-import com.example.food.model.dto.ProductDTO;
+import com.example.food.api.dto.ProductDTO;
 
 public interface ProductService {
 

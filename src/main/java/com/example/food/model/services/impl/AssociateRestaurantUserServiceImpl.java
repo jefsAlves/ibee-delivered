@@ -7,10 +7,10 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.food.model.dto.UserDTO;
+import com.example.food.api.dto.UserDTO;
 import com.example.food.model.entities.User;
-import com.example.food.model.mapper.UserMapper;
-import com.example.food.model.repository.UsersRepository;
+import com.example.food.infra.mapper.UserMapper;
+import com.example.food.infra.repository.UsersRepository;
 import com.example.food.model.services.AssociateRestaurantUserService;
 import com.example.food.model.services.RestaurantService;
 import com.example.food.model.services.UserService;

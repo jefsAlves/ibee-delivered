@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 import com.example.food.model.entities.Restaurant;
 import com.example.food.model.exceptions.RestaurantException;
-import com.example.food.model.repository.RestaurantRepository;
+import com.example.food.infra.repository.RestaurantRepository;
 
 @Component
 public class ValidationRestaurant {

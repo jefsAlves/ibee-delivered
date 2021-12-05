@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 import com.example.food.model.entities.State;
 import com.example.food.model.exceptions.StateException;
-import com.example.food.model.repository.StateRepository;
+import com.example.food.infra.repository.StateRepository;
 
 @Component
 public class ValidationState {

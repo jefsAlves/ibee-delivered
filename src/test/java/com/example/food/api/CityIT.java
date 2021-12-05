@@ -14,7 +14,7 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.example.food.model.entities.City;
-import com.example.food.model.repository.CityRepository;
+import com.example.food.infra.repository.CityRepository;
 import com.example.food.util.DatabaseCleaner;
 import com.example.food.util.MessageUtilTests;
 

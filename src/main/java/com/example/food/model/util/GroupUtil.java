@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 import com.example.food.model.entities.Group;
 import com.example.food.model.exceptions.IdNotFoudException;
-import com.example.food.model.repository.GroupRepository;
+import com.example.food.infra.repository.GroupRepository;
 
 @Component
 public class GroupUtil {

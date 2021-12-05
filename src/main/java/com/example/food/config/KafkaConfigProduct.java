@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.kafka.support.serializer.JsonSerializer;
 import org.springframework.stereotype.Component;
 
-import com.example.food.model.dto.ProductDTO;
+import com.example.food.api.dto.ProductDTO;
 
 @Component
 public class KafkaConfigProduct {

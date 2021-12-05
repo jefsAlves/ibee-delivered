@@ -11,11 +11,11 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.example.food.config.integration.SendState;
-import com.example.food.model.dto.StateDTO;
+import com.example.food.api.dto.StateDTO;
 import com.example.food.model.entities.State;
 import com.example.food.model.exceptions.IdNotFoudException;
-import com.example.food.model.mapper.StateMapper;
-import com.example.food.model.repository.StateRepository;
+import com.example.food.infra.mapper.StateMapper;
+import com.example.food.infra.repository.StateRepository;
 import com.example.food.model.services.StateService;
 import com.example.food.model.util.MessageUtil;
 import com.example.food.model.util.ValidationState;

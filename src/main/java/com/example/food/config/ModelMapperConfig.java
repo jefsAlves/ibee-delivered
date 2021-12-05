@@ -4,7 +4,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.example.food.model.dto.OrderItemInputDTO;
+import com.example.food.api.dto.OrderItemInputDTO;
 import com.example.food.model.entities.OrderItem;
 
 @Configuration

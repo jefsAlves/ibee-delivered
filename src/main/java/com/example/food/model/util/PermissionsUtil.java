@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 
 import com.example.food.model.entities.Permissions;
 import com.example.food.model.exceptions.IdNotFoudException;
-import com.example.food.model.repository.PermissionsRepository;
+import com.example.food.infra.repository.PermissionsRepository;
 
 @Component
 public class PermissionsUtil {

@@ -9,11 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
-import com.example.food.model.dto.PermissionsDTO;
+import com.example.food.api.dto.PermissionsDTO;
 import com.example.food.model.entities.Permissions;
 import com.example.food.model.exceptions.IdNotFoudException;
-import com.example.food.model.mapper.PermissionsMapper;
-import com.example.food.model.repository.PermissionsRepository;
+import com.example.food.infra.mapper.PermissionsMapper;
+import com.example.food.infra.repository.PermissionsRepository;
 import com.example.food.model.services.PermissionsService;
 import com.example.food.model.util.MessageUtil;
 import com.example.food.model.util.PermissionsUtil;

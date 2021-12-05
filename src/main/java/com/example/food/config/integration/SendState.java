@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import com.example.food.model.dto.StateDTO;
+import com.example.food.api.dto.StateDTO;
 
 @Service
 public class SendState {

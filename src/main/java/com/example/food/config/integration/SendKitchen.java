@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import com.example.food.model.dto.KitchenDTO;
+import com.example.food.api.dto.KitchenDTO;
 
 @Component
 public class SendKitchen {

@@ -2,7 +2,7 @@ package com.example.food.model.services;
 
 import java.util.List;
 
-import com.example.food.model.dto.RestaurantDTO;
+import com.example.food.api.dto.RestaurantDTO;
 import com.example.food.model.entities.Restaurant;
 
 public interface RestaurantService {

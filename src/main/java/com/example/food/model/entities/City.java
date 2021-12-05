@@ -13,7 +13,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.groups.ConvertGroup;
 import javax.validation.groups.Default;
 
-import com.example.food.model.controller.groups.StateGroups.StateId;
+import com.example.food.api.controller.groups.StateGroups.StateId;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

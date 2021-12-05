@@ -12,7 +12,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-import com.example.food.model.controller.groups.GroupRestaurant.KitchenId;
+import com.example.food.api.controller.groups.GroupRestaurant.KitchenId;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import com.example.food.model.entities.Kitchen;
 import com.example.food.model.exceptions.IdNotFoudException;
 import com.example.food.model.exceptions.KitchenException;
-import com.example.food.model.repository.KitchenRepository;
+import com.example.food.infra.repository.KitchenRepository;
 
 @Component
 public class ValidationKitchen {

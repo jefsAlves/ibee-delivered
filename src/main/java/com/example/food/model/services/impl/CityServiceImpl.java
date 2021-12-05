@@ -11,11 +11,11 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.example.food.config.integration.SendCity;
-import com.example.food.model.dto.CityDTO;
+import com.example.food.api.dto.CityDTO;
 import com.example.food.model.entities.City;
 import com.example.food.model.exceptions.IdNotFoudException;
-import com.example.food.model.mapper.CityMapper;
-import com.example.food.model.repository.CityRepository;
+import com.example.food.infra.mapper.CityMapper;
+import com.example.food.infra.repository.CityRepository;
 import com.example.food.model.services.CityService;
 import com.example.food.model.util.MessageUtil;
 import com.example.food.model.util.ValidationCity;

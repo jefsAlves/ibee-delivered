@@ -10,11 +10,11 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.example.food.config.integration.SendKitchen;
-import com.example.food.model.dto.KitchenDTO;
+import com.example.food.api.dto.KitchenDTO;
 import com.example.food.model.entities.Kitchen;
 import com.example.food.model.exceptions.IdNotFoudException;
-import com.example.food.model.mapper.KitchenMapper;
-import com.example.food.model.repository.KitchenRepository;
+import com.example.food.infra.mapper.KitchenMapper;
+import com.example.food.infra.repository.KitchenRepository;
 import com.example.food.model.services.KitchenService;
 import com.example.food.model.util.MessageUtil;
 import com.example.food.model.util.ValidationKitchen;

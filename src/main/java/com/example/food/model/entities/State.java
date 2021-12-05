@@ -9,7 +9,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-import com.example.food.model.controller.groups.StateGroups.StateId;
+import com.example.food.api.controller.groups.StateGroups.StateId;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

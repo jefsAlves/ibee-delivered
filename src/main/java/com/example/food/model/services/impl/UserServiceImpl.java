@@ -10,14 +10,14 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
-import com.example.food.model.dto.UserDTO;
-import com.example.food.model.dto.UserPasswordDTO;
+import com.example.food.api.dto.UserDTO;
+import com.example.food.api.dto.UserPasswordDTO;
 import com.example.food.model.entities.User;
 import com.example.food.model.exceptions.BusinessException;
 import com.example.food.model.exceptions.CannotDeleteException;
 import com.example.food.model.exceptions.IdNotFoudException;
-import com.example.food.model.mapper.UserMapper;
-import com.example.food.model.repository.UsersRepository;
+import com.example.food.infra.mapper.UserMapper;
+import com.example.food.infra.repository.UsersRepository;
 import com.example.food.model.services.UserService;
 import com.example.food.model.util.MessageUtil;
 import com.example.food.model.util.UsersUtil;

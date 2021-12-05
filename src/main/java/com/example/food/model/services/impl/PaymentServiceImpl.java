@@ -6,11 +6,11 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.food.model.dto.PaymentDTO;
+import com.example.food.api.dto.PaymentDTO;
 import com.example.food.model.entities.Payment;
 import com.example.food.model.exceptions.IdNotFoudException;
-import com.example.food.model.mapper.PaymentMapper;
-import com.example.food.model.repository.PaymentRepository;
+import com.example.food.infra.mapper.PaymentMapper;
+import com.example.food.infra.repository.PaymentRepository;
 import com.example.food.model.services.PaymentService;
 import com.example.food.model.util.MessageUtil;
 

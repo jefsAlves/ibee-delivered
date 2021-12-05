@@ -2,9 +2,9 @@ package com.example.food.model.services;
 
 import java.util.List;
 
-import com.example.food.model.dto.OrderDTO;
-import com.example.food.model.dto.OrderInputDTO;
-import com.example.food.model.dto.OrdersDTO;
+import com.example.food.api.dto.OrderDTO;
+import com.example.food.api.dto.OrderInputDTO;
+import com.example.food.api.dto.OrdersDTO;
 import com.example.food.model.entities.Order;
 
 public interface OrderService {

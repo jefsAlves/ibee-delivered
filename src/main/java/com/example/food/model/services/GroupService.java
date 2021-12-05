@@ -2,7 +2,7 @@ package com.example.food.model.services;
 
 import java.util.List;
 
-import com.example.food.model.dto.GroupDTO;
+import com.example.food.api.dto.GroupDTO;
 import com.example.food.model.entities.Group;
 
 public interface GroupService {

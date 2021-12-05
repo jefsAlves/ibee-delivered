@@ -2,8 +2,8 @@ package com.example.food.model.services;
 
 import java.util.List;
 
-import com.example.food.model.dto.UserDTO;
-import com.example.food.model.dto.UserPasswordDTO;
+import com.example.food.api.dto.UserDTO;
+import com.example.food.api.dto.UserPasswordDTO;
 import com.example.food.model.entities.User;
 
 public interface UserService {

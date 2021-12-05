@@ -3,7 +3,7 @@ package com.example.food.model.services;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-import com.example.food.model.dto.StateDTO;
+import com.example.food.api.dto.StateDTO;
 
 public interface StateService {
 
