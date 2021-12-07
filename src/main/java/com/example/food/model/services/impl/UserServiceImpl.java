@@ -16,7 +16,7 @@ import com.example.food.model.entities.User;
 import com.example.food.model.exceptions.BusinessException;
 import com.example.food.model.exceptions.CannotDeleteException;
 import com.example.food.model.exceptions.IdNotFoudException;
-import com.example.food.infra.mapper.UserMapper;
+import com.example.food.infra.mapper.impl.UserMapper;
 import com.example.food.infra.repository.UsersRepository;
 import com.example.food.model.services.UserService;
 import com.example.food.model.util.MessageUtil;

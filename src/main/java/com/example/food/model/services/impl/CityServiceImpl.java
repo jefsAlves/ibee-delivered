@@ -10,11 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
-import com.example.food.config.integration.SendCity;
+import com.example.food.infra.kafka.integration.SendCity;
 import com.example.food.api.dto.CityDTO;
 import com.example.food.model.entities.City;
 import com.example.food.model.exceptions.IdNotFoudException;
-import com.example.food.infra.mapper.CityMapper;
+import com.example.food.infra.mapper.impl.CityMapper;
 import com.example.food.infra.repository.CityRepository;
 import com.example.food.model.services.CityService;
 import com.example.food.model.util.MessageUtil;

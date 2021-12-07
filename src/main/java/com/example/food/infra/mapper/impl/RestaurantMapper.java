@@ -1,4 +1,4 @@
-package com.example.food.infra.mapper;
+package com.example.food.infra.mapper.impl;
 
 import java.util.List;
 import java.util.Optional;

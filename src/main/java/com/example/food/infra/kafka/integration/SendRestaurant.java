@@ -1,4 +1,4 @@
-package com.example.food.config.integration;
+package com.example.food.infra.kafka.integration;
 
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;
@@ -8,20 +8,20 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import com.example.food.api.dto.ProductDTO;
+import com.example.food.api.dto.RestaurantDTO;
 
 @Component
-public class SendProduct {
+public class SendRestaurant {
 
 	@Autowired
-	@Qualifier("productProducer")
-	private KafkaProducer<String, ProductDTO> kafkaProducer;
+	@Qualifier("restaurantProducer")
+	private KafkaProducer<String, RestaurantDTO> kafkaProducer;
 
-	@Value("${spring.cloud.stream.bindings.topic-product.destination}")
+	@Value("${spring.cloud.stream.bindings.topic-restaurant.destination}")
 	private String topic;
 
-	public void sendMessage(@RequestBody ProductDTO productDTO) {
-		ProducerRecord<String, ProductDTO> record = new ProducerRecord<>(topic, productDTO);
+	public void sendMessage(@RequestBody RestaurantDTO restaurantDTO) {
+		ProducerRecord<String, RestaurantDTO> record = new ProducerRecord<>(topic, restaurantDTO);
 		kafkaProducer.send(record);
 	}
 

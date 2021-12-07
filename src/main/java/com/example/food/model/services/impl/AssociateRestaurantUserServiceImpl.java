@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.food.api.dto.UserDTO;
 import com.example.food.model.entities.User;
-import com.example.food.infra.mapper.UserMapper;
+import com.example.food.infra.mapper.impl.UserMapper;
 import com.example.food.infra.repository.UsersRepository;
 import com.example.food.model.services.AssociateRestaurantUserService;
 import com.example.food.model.services.RestaurantService;

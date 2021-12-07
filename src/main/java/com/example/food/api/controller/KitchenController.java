@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import com.example.food.infra.mapper.KitchenMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +27,9 @@ public class KitchenController {
 	@Autowired
 	private KitchenService kitchenService;
 
+	@Autowired
+	private KitchenMapper mapper;
+
 	@GetMapping(value = "/{kitchenId}")
 	public ResponseEntity<KitchenDTO> searchKitchen(@PathVariable Long kitchenId) {
 		return new ResponseEntity<>(kitchenService.searchKitchen(kitchenId), HttpStatus.OK);
@@ -36,9 +40,16 @@ public class KitchenController {
 		return new ResponseEntity<>(kitchenService.listKitchens(kitchenDTO), HttpStatus.OK);
 	}
 
+//	@PostMapping
+//	public ResponseEntity<KitchenDTO> createKitchen(@RequestBody @Valid KitchenDTO kitchenDTO) {
+//		return new ResponseEntity<>(kitchenService.createKitchen(kitchenDTO), HttpStatus.CREATED);
+//	}
+
 	@PostMapping
-	public ResponseEntity<KitchenDTO> createKitchen(@RequestBody @Valid KitchenDTO kitchenDTO) {
-		return new ResponseEntity<>(kitchenService.createKitchen(kitchenDTO), HttpStatus.CREATED);
+	public ResponseEntity<KitchenDTO> createKitchen(@Valid KitchenDTO kitchenDTO) {
+		var kitchen = kitchenService.createKitchen(mapper.toEntity(kitchenDTO));
+		return ResponseEntity.ok(mapper.toDTO(kitchen));
+//		return null;
 	}
 
 	@PutMapping(value = "/{kitchenId}")

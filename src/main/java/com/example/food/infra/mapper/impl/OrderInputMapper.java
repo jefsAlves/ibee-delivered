@@ -1,4 +1,4 @@
-package com.example.food.infra.mapper;
+package com.example.food.infra.mapper.impl;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;

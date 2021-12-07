@@ -1,4 +1,4 @@
-package com.example.food.config.integration;
+package com.example.food.infra.kafka.integration;
 
 import java.util.concurrent.ExecutionException;
 

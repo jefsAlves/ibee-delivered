@@ -1,4 +1,4 @@
-package com.example.food.config;
+package com.example.food.infra.kafka.config;
 
 import java.util.HashMap;
 import java.util.Map;

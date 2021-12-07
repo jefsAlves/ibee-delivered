@@ -1,4 +1,4 @@
-package com.example.food.config;
+package com.example.food.infra.kafka.config;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -11,23 +11,23 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.kafka.support.serializer.JsonSerializer;
 import org.springframework.stereotype.Component;
 
-import com.example.food.api.dto.RestaurantDTO;
+import com.example.food.api.dto.KitchenDTO;
 
 @Component
-public class KafkaConfigRestaurant {
+public class KafkaConfigKitchen {
 
 	@Value("${spring.cloud.stream.kafka.binder.brokers}")
 	private String bootstrapServer;
 
 	@Value("${spring.kafka.producer.group-id}")
-	private String consumerGroup;
+	private String groupId;
 
-	@Bean("restaurantProducer")
-	public KafkaProducer<String, RestaurantDTO> kafkaProducer() {
+	@Bean("kitchenProducer")
+	public KafkaProducer<String, KitchenDTO> kafkaProducer() {
 		return new KafkaProducer<>(configsProducer());
 	}
 
-	@Bean("restaurantProducerConfig")
+	@Bean("kitchenKafkaConfig")
 	public Map<String, Object> configsProducer() {
 		Map<String, Object> configs = new HashMap<>();
 		configs.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServer);

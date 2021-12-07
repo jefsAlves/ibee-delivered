@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.food.api.dto.GroupDTO;
-import com.example.food.infra.mapper.GroupMapper;
+import com.example.food.infra.mapper.impl.GroupMapper;
 import com.example.food.infra.repository.GroupRepository;
 import com.example.food.model.services.AssociatePermissionGroupService;
 import com.example.food.model.services.GroupService;

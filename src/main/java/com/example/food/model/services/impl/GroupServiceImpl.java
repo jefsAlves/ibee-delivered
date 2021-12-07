@@ -12,7 +12,7 @@ import com.example.food.api.dto.GroupDTO;
 import com.example.food.model.entities.Group;
 import com.example.food.model.exceptions.CannotDeleteException;
 import com.example.food.model.exceptions.IdNotFoudException;
-import com.example.food.infra.mapper.GroupMapper;
+import com.example.food.infra.mapper.impl.GroupMapper;
 import com.example.food.infra.repository.GroupRepository;
 import com.example.food.model.services.GroupService;
 import com.example.food.model.util.GroupUtil;

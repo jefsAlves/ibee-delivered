@@ -8,11 +8,11 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.food.config.integration.SendProduct;
+import com.example.food.infra.kafka.integration.SendProduct;
 import com.example.food.api.dto.ProductDTO;
 import com.example.food.model.entities.Products;
 import com.example.food.model.exceptions.IdNotFoudException;
-import com.example.food.infra.mapper.ProductsMapper;
+import com.example.food.infra.mapper.impl.ProductsMapper;
 import com.example.food.infra.repository.ProductRepository;
 import com.example.food.model.services.ProductService;
 import com.example.food.model.services.RestaurantService;

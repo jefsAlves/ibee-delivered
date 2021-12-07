@@ -86,10 +86,6 @@ services:
     depends_on:
       - ibee
 
-  sonarqube:
-    image: sonarqube
-    ports:
-    -  9000:9000
 
  
 

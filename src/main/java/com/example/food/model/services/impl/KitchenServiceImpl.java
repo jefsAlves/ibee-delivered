@@ -9,11 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
-import com.example.food.config.integration.SendKitchen;
+import com.example.food.infra.kafka.integration.SendKitchen;
 import com.example.food.api.dto.KitchenDTO;
 import com.example.food.model.entities.Kitchen;
 import com.example.food.model.exceptions.IdNotFoudException;
-import com.example.food.infra.mapper.KitchenMapper;
+import com.example.food.infra.mapper.impl.KitchenMapperImpl;
 import com.example.food.infra.repository.KitchenRepository;
 import com.example.food.model.services.KitchenService;
 import com.example.food.model.util.MessageUtil;
@@ -29,7 +29,7 @@ public class KitchenServiceImpl implements KitchenService {
 	private ValidationKitchen validationKitchen;
 
 	@Autowired
-	private KitchenMapper mapper;
+	private KitchenMapperImpl mapper;
 
 	@Autowired
 	private SendKitchen integration;
@@ -47,14 +47,23 @@ public class KitchenServiceImpl implements KitchenService {
 		return mapper.toDTOList(kitchen);
 	}
 
+//	@Transactional
+//	@Override
+//	public KitchenDTO createKitchen(KitchenDTO kitchenDTO) {
+//		var kitchen = mapper.toEntity(kitchenDTO);
+//		validationKitchen.verifyKitchenExist(kitchen.getName());
+//		kitchenRepository.save(kitchen);
+//		integration.sendMessage(kitchenDTO);
+//		return mapper.toDTO(kitchen);
+//	}
+
 	@Transactional
 	@Override
-	public KitchenDTO createKitchen(KitchenDTO kitchenDTO) {
-		var kitchen = mapper.toEntity(kitchenDTO);
+	public Kitchen createKitchen(Kitchen kitchen) {
 		validationKitchen.verifyKitchenExist(kitchen.getName());
 		kitchenRepository.save(kitchen);
-		integration.sendMessage(kitchenDTO);
-		return mapper.toDTO(kitchen);
+//		integration.sendMessage(kitchen);
+		return kitchen;
 	}
 
 	@Transactional

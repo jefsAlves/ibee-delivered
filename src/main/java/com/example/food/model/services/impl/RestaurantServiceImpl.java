@@ -9,12 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
-import com.example.food.config.integration.SendRestaurant;
+import com.example.food.infra.kafka.integration.SendRestaurant;
 import com.example.food.api.dto.RestaurantDTO;
 import com.example.food.model.entities.Restaurant;
 import com.example.food.model.exceptions.IdNotFoudException;
 import com.example.food.model.exceptions.RestaurantException;
-import com.example.food.infra.mapper.RestaurantMapper;
+import com.example.food.infra.mapper.impl.RestaurantMapper;
 import com.example.food.infra.repository.RestaurantRepository;
 import com.example.food.model.services.RestaurantService;
 import com.example.food.model.util.MessageUtil;
