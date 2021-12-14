@@ -13,8 +13,8 @@ jobs:
       - name: Build
         run: sudo mvn package
 
-      - name: Run Tests
-        run: sudo mvn tests
+      - name: Run Integrated Tests
+        run: sudo mvn verify
 
       - name: Setup Docker
         uses: docker/setup-qemu-action@v1
