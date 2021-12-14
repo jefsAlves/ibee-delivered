@@ -35,15 +35,4 @@ public class KitchenServiceIT {
         assertThat(kitchen.getId()).isNotNull();
     }
 
-    @Test
-    void givenUpdateKitchen_ShouldRegister() {
-        Long kitchenId = 1L;
-        KitchenDTO kitchenDTO = new KitchenDTO();
-        kitchenDTO.setName("tests");
-
-        var kitchen = kitchenService.updateKitchen(kitchenId, kitchenDTO);
-
-        assertThat(kitchen).isNotNull();
-    }
-
 }
