@@ -5,8 +5,10 @@ import java.util.Optional;
 
 import javax.transaction.Transactional;
 
+import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.example.food.infra.kafka.integration.SendKitchen;
@@ -47,23 +49,14 @@ public class KitchenServiceImpl implements KitchenService {
 		return mapper.toDTOList(kitchen);
 	}
 
-//	@Transactional
-//	@Override
-//	public KitchenDTO createKitchen(KitchenDTO kitchenDTO) {
-//		var kitchen = mapper.toEntity(kitchenDTO);
-//		validationKitchen.verifyKitchenExist(kitchen.getName());
-//		kitchenRepository.save(kitchen);
-//		integration.sendMessage(kitchenDTO);
-//		return mapper.toDTO(kitchen);
-//	}
-
 	@Transactional
 	@Override
-	public Kitchen createKitchen(Kitchen kitchen) {
+	public KitchenDTO createKitchen(KitchenDTO kitchenDTO) {
+		var kitchen = mapper.toEntity(kitchenDTO);
 		validationKitchen.verifyKitchenExist(kitchen.getName());
 		kitchenRepository.save(kitchen);
-//		integration.sendMessage(kitchen);
-		return kitchen;
+//		integration.sendMessage(kitchenDTO);
+		return mapper.toDTO(kitchen);
 	}
 
 	@Transactional
@@ -80,7 +73,7 @@ public class KitchenServiceImpl implements KitchenService {
 	public void deleteKitchen(Long id) {
 		try {
 			kitchenRepository.deleteById(id);
-		} catch (DataIntegrityViolationException e) {
+		} catch (DataIntegrityViolationException | EmptyResultDataAccessException e) {
 			throw new IdNotFoudException(MessageUtil.ID_NOT_FOUND);
 		}
 	}

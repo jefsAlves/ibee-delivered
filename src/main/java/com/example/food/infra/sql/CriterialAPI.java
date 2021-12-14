@@ -12,6 +12,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
+import lombok.var;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
@@ -28,7 +29,7 @@ public class CriterialAPI {
 		CriteriaQuery<Restaurant> createCriteria = builder.createQuery(Restaurant.class);
 		Root<Restaurant> root = createCriteria.from(Restaurant.class);
 
-		var predicate = new ArrayList<Predicate>();
+		 var predicate = new ArrayList<Predicate>();
 
 		if (StringUtils.hasText(name)) {
 			predicate.add(builder.like(root.get("name"), "%" + name + "%"));

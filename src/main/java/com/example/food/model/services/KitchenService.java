@@ -11,9 +11,9 @@ public interface KitchenService {
 
 	List<KitchenDTO> listKitchens(KitchenDTO kitchen);
 
-//	KitchenDTO createKitchen(KitchenDTO kitchen);
+	KitchenDTO createKitchen(KitchenDTO kitchen);
 
-	Kitchen createKitchen(Kitchen kitchen);
+//	Kitchen createKitchen(Kitchen kitchen);
 
 	KitchenDTO updateKitchen(Long id, KitchenDTO kitchen);
 

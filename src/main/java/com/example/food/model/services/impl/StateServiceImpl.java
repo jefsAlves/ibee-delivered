@@ -6,6 +6,7 @@ import java.util.concurrent.ExecutionException;
 
 import javax.transaction.Transactional;
 
+import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;

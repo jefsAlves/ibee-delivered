@@ -40,17 +40,17 @@ public class KitchenController {
 		return new ResponseEntity<>(kitchenService.listKitchens(kitchenDTO), HttpStatus.OK);
 	}
 
-//	@PostMapping
-//	public ResponseEntity<KitchenDTO> createKitchen(@RequestBody @Valid KitchenDTO kitchenDTO) {
-//		return new ResponseEntity<>(kitchenService.createKitchen(kitchenDTO), HttpStatus.CREATED);
-//	}
-
 	@PostMapping
-	public ResponseEntity<KitchenDTO> createKitchen(@Valid KitchenDTO kitchenDTO) {
-		var kitchen = kitchenService.createKitchen(mapper.toEntity(kitchenDTO));
-		return ResponseEntity.ok(mapper.toDTO(kitchen));
-//		return null;
+	public ResponseEntity<KitchenDTO> createKitchen(@RequestBody @Valid KitchenDTO kitchenDTO) {
+		return new ResponseEntity<>(kitchenService.createKitchen(kitchenDTO), HttpStatus.CREATED);
 	}
+
+//	@PostMapping
+//	public ResponseEntity<KitchenDTO> createKitchen(@Valid KitchenDTO kitchenDTO) {
+//		var kitchen = kitchenService.createKitchen(mapper.toEntity(kitchenDTO));
+//		return ResponseEntity.ok(mapper.toDTO(kitchen));
+////		return null;
+//	}
 
 	@PutMapping(value = "/{kitchenId}")
 	public ResponseEntity<KitchenDTO> updateKitchen(@PathVariable Long kitchenId, @RequestBody KitchenDTO kitchenDTO) {

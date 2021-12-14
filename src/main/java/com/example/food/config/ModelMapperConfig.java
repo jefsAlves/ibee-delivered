@@ -1,5 +1,6 @@
 package com.example.food.config;
 
+import lombok.var;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
