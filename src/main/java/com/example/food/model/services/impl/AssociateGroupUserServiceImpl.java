@@ -1,8 +1,6 @@
 package com.example.food.model.services.impl;
 
 import javax.transaction.Transactional;
-
-import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

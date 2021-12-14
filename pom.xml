@@ -9,10 +9,10 @@
 		<version>2.4.5</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.example</groupId>
-	<artifactId>Algaworks</artifactId>
+	<groupId>com.ibee</groupId>
+	<artifactId>Ibee</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>Algaworks</name>
+	<name>ibee-delivered</name>
 	<description>AlgaFood</description>
 	<properties>
 		<java.version>11</java.version>
@@ -190,7 +190,7 @@
 			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
-				<version>0.8.3</version>
+				<version>0.8.7</version>
 				<executions>
 					<execution>
 						<goals>

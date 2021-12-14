@@ -2,15 +2,11 @@ package com.example.food.model.services.impl;
 
 import java.util.List;
 import java.util.Optional;
-
 import javax.transaction.Transactional;
-
-import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
-
 import com.example.food.api.dto.UserDTO;
 import com.example.food.api.dto.UserPasswordDTO;
 import com.example.food.model.entities.User;

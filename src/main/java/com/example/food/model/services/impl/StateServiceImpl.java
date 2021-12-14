@@ -3,14 +3,10 @@ package com.example.food.model.services.impl;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.ExecutionException;
-
 import javax.transaction.Transactional;
-
-import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
-
 import com.example.food.infra.kafka.integration.SendState;
 import com.example.food.api.dto.StateDTO;
 import com.example.food.model.entities.State;

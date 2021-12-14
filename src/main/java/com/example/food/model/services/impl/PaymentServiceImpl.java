@@ -2,11 +2,8 @@ package com.example.food.model.services.impl;
 
 import java.util.List;
 import java.util.Optional;
-
-import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.example.food.api.dto.PaymentDTO;
 import com.example.food.model.entities.Payment;
 import com.example.food.model.exceptions.IdNotFoudException;

@@ -1,13 +1,9 @@
 package com.example.food.model.services.impl;
 
 import java.util.List;
-
 import javax.transaction.Transactional;
-
-import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.example.food.api.dto.OrderDTO;
 import com.example.food.api.dto.OrderInputDTO;
 import com.example.food.api.dto.OrdersDTO;

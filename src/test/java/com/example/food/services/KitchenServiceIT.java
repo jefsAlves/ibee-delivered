@@ -1,17 +1,12 @@
 package com.example.food.services;
 
 import com.example.food.api.dto.KitchenDTO;
-import com.example.food.model.exceptions.BusinessException;
-import com.example.food.model.exceptions.IdNotFoudException;
 import com.example.food.model.services.KitchenService;
 import com.example.food.utils.ObjectMock;
-import lombok.var;
-import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import static org.assertj.core.api.Assertions.*;
@@ -29,7 +24,7 @@ public class KitchenServiceIT {
     void givenSearchKitchen_ShouldRetrieval() {
         Long kitchenId = 1L;
 
-        var kitchen = kitchenService.searchKitchen(kitchenId);
+        KitchenDTO kitchen = kitchenService.searchKitchen(kitchenId);
 
         assertThat(kitchen.getId()).isNotNull();
     }

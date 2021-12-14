@@ -3,14 +3,10 @@ package com.example.food.model.services.impl;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.ExecutionException;
-
 import javax.transaction.Transactional;
-
-import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
-
 import com.example.food.infra.kafka.integration.SendCity;
 import com.example.food.api.dto.CityDTO;
 import com.example.food.model.entities.City;
@@ -35,8 +31,6 @@ public class CityServiceImpl implements CityService {
 
 	@Autowired
 	private SendCity integration;
-
-//	private Logger logger = LoggerFactory.getLogger(CityServiceImpl.class);
 
 	@Override
 	public CityDTO searchCity(Long id) {
