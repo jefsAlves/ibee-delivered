@@ -3,6 +3,7 @@ package com.example.food.services;
 import com.example.food.api.dto.KitchenDTO;
 import com.example.food.model.services.KitchenService;
 import com.example.food.utils.ObjectMock;
+import org.junit.Before;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import static org.assertj.core.api.Assertions.*;
 
-@RunWith(SpringRunner.class)
 @SpringBootTest
 public class KitchenServiceIT {
 
@@ -19,6 +19,12 @@ public class KitchenServiceIT {
     private KitchenService kitchenService;
 
     ObjectMock objectMock = new ObjectMock();
+
+    @Before
+    public void setup() {
+        var kitchenDTO = objectMock.createKitchen();
+        kitchenService.createKitchen(kitchenDTO);
+    }
 
     @Test
     void givenSearchKitchen_ShouldRetrieval() {
@@ -33,7 +39,7 @@ public class KitchenServiceIT {
     void givenUpdateKitchen_ShouldRegister() {
         Long kitchenId = 1L;
         KitchenDTO kitchenDTO = new KitchenDTO();
-        kitchenDTO.setName("teste");
+        kitchenDTO.setName("tests");
 
         var kitchen = kitchenService.updateKitchen(kitchenId, kitchenDTO);
 
